@@ -88,7 +88,7 @@ header .quote {
   font-style: italic;
   font-size: 1.2em;   /* 再小一點 */
   line-height: 1.4;   /* 保持舒適的行距 */
-  opacity: 0.85;       /* 稍微淡一點，讓名字更突出 */
+  opacity: 0.8;       /* 稍微淡一點，讓名字更突出 */
 }
 
 header .contact {
