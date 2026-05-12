@@ -58,6 +58,7 @@ a {
   margin: 0 auto;
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   gap: 22px;
   font-size: 0.92rem;
 }
@@ -87,6 +88,43 @@ a {
 .topbar a:hover::after {
   left: 0;
   right: 0;
+}
+
+.language-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
+}
+
+.language-switch a,
+.language-switch span {
+  display: inline-flex;
+  min-width: 38px;
+  height: 28px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.84rem;
+  line-height: 1;
+  text-decoration: none;
+}
+
+.language-switch a {
+  padding-bottom: 0;
+}
+
+.language-switch a::after {
+  display: none;
+}
+
+.language-switch .active {
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--ink);
+  font-weight: 700;
 }
 
 .hero-content {
