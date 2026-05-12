@@ -131,7 +131,6 @@ a {
 
 #typewriter {
   display: inline-block;
-  min-width: 10ch;
   padding-bottom: 0.14em;
   border-right: 3px solid #fff;
   white-space: nowrap;
