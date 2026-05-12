@@ -296,7 +296,6 @@ p {
   display: block;
   width: 46px;
   height: 46px;
-  margin-bottom: 14px;
   object-fit: contain;
   opacity: 0.72;
   filter: grayscale(0.25);
@@ -304,8 +303,15 @@ p {
 }
 
 .wide-logo {
-  width: 110px;
-  max-width: 48%;
+  width: 128px;
+  max-width: 100%;
+}
+
+.logo-frame {
+  display: flex;
+  height: 58px;
+  align-items: center;
+  margin-bottom: 14px;
 }
 
 .education-logo {
@@ -378,6 +384,10 @@ p {
 .achievement-grid p,
 .leadership-list {
   color: var(--muted);
+}
+
+.card p + p {
+  margin-top: 8px;
 }
 
 .projects-grid {
