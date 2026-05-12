@@ -1,269 +1,505 @@
+:root {
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --ink: #1f2933;
+  --muted: #5f6b7a;
+  --line: #d9dee7;
+  --navy: #1e3a5f;
+  --teal: #0f766e;
+  --gold: #c28b24;
+  --shadow: 0 16px 40px rgba(31, 41, 51, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  font-family: 'Segoe UI', Arial, sans-serif;
   margin: 0;
-  padding: 0;
-  background: #f5f6fa;
-  color: #2f3640;
-  line-height: 1.6;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.65;
 }
 
-#typewriter {
-  display: inline-block;
-  border-right: 3px solid #fff; /* 模擬游標 */
-  white-space: nowrap;
-  overflow: hidden;
-  /*width: 0;  初始隱藏 */
-  animation: blinkCursor 0.7s infinite;
+a {
+  color: inherit;
 }
 
-@keyframes blinkCursor {
-  50% { border-color: transparent; }
-}
-
-.profile {
-  display: flex;
-  flex-direction: column;  /* 改成直排 */
-  align-items: center;     /* 水平置中 */
-  justify-content: center; /* 垂直置中 */
-  gap: 15px;               /* 元素之間留白 */
-}
-
-header {
+.hero {
   position: relative;
-  text-align: center;
-  padding: 80px 20px;
-  background: #3b3b3b;
+  min-height: 680px;
+  padding: 24px 24px 72px;
+  background: #1f2933;
   color: #fff;
   overflow: hidden;
 }
 
-/* Canvas 在最底層 */
 #triangle-bg {
   position: absolute;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100%;
   height: 100%;
   z-index: 0;
 }
 
-header .profile {
+.topbar,
+.hero-content {
   position: relative;
-  z-index: 1; /* 確保文字和照片在三角形上層 */
+  z-index: 1;
 }
 
-/* 地址文字初始隱藏 + 從右側滑入 */
-.location-text {
-  opacity: 0;
-  transform: translateX(80px);
-  transition: all 1s ease;
+.topbar {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: flex-end;
+  gap: 22px;
+  font-size: 0.92rem;
+}
+
+.topbar a {
+  position: relative;
+  padding-bottom: 6px;
+  color: rgba(255, 255, 255, 0.82);
+  text-decoration: none;
+}
+
+.topbar a::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  right: 50%;
+  bottom: 0;
+  height: 2px;
+  background: var(--gold);
+  transition: left 0.22s ease, right 0.22s ease;
+}
+
+.topbar a:hover {
+  color: #fff;
+}
+
+.topbar a:hover::after {
+  left: 0;
+  right: 0;
+}
+
+.hero-content {
+  max-width: 920px;
+  margin: 78px auto 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.profile-photo {
+  width: 156px;
+  height: 156px;
+  border-radius: 50%;
+  border: 4px solid rgba(255, 255, 255, 0.9);
+  object-fit: cover;
+  object-position: top center;
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.28);
+}
+
+.eyebrow,
+.section-kicker {
+  margin: 0 0 8px;
+  color: var(--gold);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.hero .eyebrow {
+  margin-top: 28px;
+}
+
+.hero h1 {
+  min-height: 92px;
+  margin: 0;
+  font-size: clamp(2.75rem, 6.6vw, 4.9rem);
+  line-height: 1.18;
+}
+
+#typewriter {
   display: inline-block;
+  min-width: 10ch;
+  padding-bottom: 0.14em;
+  border-right: 3px solid #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  animation: blinkCursor 0.7s infinite;
+}
+
+@keyframes blinkCursor {
+  50% {
+    border-color: transparent;
+  }
+}
+
+.name-local {
+  margin: 10px 0 0;
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.quote {
+  max-width: 660px;
+  margin: 18px 0 0;
+  color: rgba(255, 255, 255, 0.84);
+  font-size: 1.18rem;
+  font-style: italic;
+}
+
+.contact {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 30px;
+}
+
+.icon-btn {
+  display: inline-flex;
+  width: 46px;
+  height: 46px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  color: #1f2933;
+  font-size: 1.15rem;
+  text-decoration: none;
+  transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.icon-btn:hover {
+  transform: translateY(-2px);
+  color: #fff;
+}
+
+.icon-btn.email:hover {
+  background: #c2410c;
+}
+
+.icon-btn.linkedin:hover {
+  background: #0a66c2;
+}
+
+.location-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
 }
 
 .location-text.visible {
   opacity: 1;
-  transform: translateX(0);
-}
-
-header img {
-  width: 150px;
-  height: 150px;
-  object-fit: cover;
-  object-position: top center;  /* 保留頭頂完整 */
-  border-radius: 50%;
-  border: 4px solid #fff;
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* 平滑動畫 */
-}
-
-header img:hover {
-  transform: scale(1.1); /* 放大 10% */
-  box-shadow: 0 6px 20px rgba(0,0,0,0.3); /* 加陰影 */
-}
-
-header h1 {
-  margin: 15px 0 5px;
-}
-
-header .quote {
-  font-style: italic;
-  font-size: 1.2em;   /* 再小一點 */
-  line-height: 1.4;   /* 保持舒適的行距 */
-  opacity: 0.8;       /* 稍微淡一點，讓名字更突出 */
-}
-
-header .contact {
-  margin-top: 10px;
-  font-size: 0.9em;
-}
-
-/* Contact 區塊的容器 */
-.contact {
-  margin-top: 15px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-/* Icon button 通用樣式 */
-.icon-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  background: #dcdde1;
-  color: #2f3640;
-  font-size: 1.2em;
-  transition: all 0.3s ease;
-  text-decoration: none;
-}
-
-.icon-btn:hover {
-  transform: scale(1.15);
-  color: #fff;
-}
-
-/* 個別平台配色 */
-.icon-btn.email:hover {
-  background: #e84118;  /* Gmail 紅 */
-}
-
-.icon-btn.linkedin:hover {
-  background: #0a66c2;  /* LinkedIn 藍 */
+  transform: translateY(0);
 }
 
 main {
-  max-width: 900px;
-  margin: auto;
-  padding: 40px 20px;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 58px 24px 24px;
 }
 
-main h2 {
-  color: #273c75;
-  margin-bottom: 10px;
-  border-bottom: 2px solid #dcdde1;
-  padding-bottom: 5px;
+.section {
+  padding: 48px 0;
+  border-bottom: 1px solid var(--line);
 }
 
-/* Skills grid with hover animation */
-.skills {
+.section:last-child {
+  border-bottom: 0;
+}
+
+.intro-section {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 10px;
-  list-style: none;
+  grid-template-columns: minmax(240px, 0.85fr) minmax(280px, 1.15fr);
+  gap: 48px;
+  align-items: start;
+}
+
+.intro-section h2 {
+  font-size: clamp(1.35rem, 2.4vw, 1.9rem);
+  line-height: 1.22;
+}
+
+h2 {
+  margin: 0 0 22px;
+  color: var(--navy);
+  font-size: clamp(1.65rem, 3vw, 2.35rem);
+  line-height: 1.16;
+}
+
+h3 {
+  margin: 0 0 8px;
+  color: var(--ink);
+  font-size: 1.08rem;
+}
+
+p {
+  margin: 0;
+}
+
+.skills,
+.experience-list,
+.projects-grid,
+.achievement-grid {
+  display: grid;
+  gap: 18px;
+}
+
+.skills {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.skills li,
+.timeline article,
+.experience-card,
+.card,
+.achievement-grid article,
+.leadership-list li {
+  background: var(--surface);
+  border: 1px solid rgba(217, 222, 231, 0.85);
+  border-radius: 8px;
+  box-shadow: 0 10px 24px rgba(31, 41, 51, 0.06);
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+}
+
+.skills li:hover,
+.timeline article:hover,
+.experience-card:hover,
+.card:hover,
+.achievement-grid article:hover,
+.leadership-list li:hover {
+  transform: translateY(-4px);
+  border-color: rgba(15, 118, 110, 0.42);
+  box-shadow: var(--shadow);
+}
+
+.card-logo {
+  display: block;
+  width: 46px;
+  height: 46px;
+  margin-bottom: 14px;
+  object-fit: contain;
+  opacity: 0.72;
+  filter: grayscale(0.25);
+  transition: opacity 0.22s ease, filter 0.22s ease, transform 0.22s ease;
+}
+
+.wide-logo {
+  width: 110px;
+  max-width: 48%;
+}
+
+.education-logo {
+  width: 78px;
+  height: 78px;
+  margin: 0 18px 0 0;
+  flex: 0 0 auto;
+}
+
+.timeline article:hover .card-logo,
+.experience-card:hover .card-logo {
+  opacity: 1;
+  filter: grayscale(0);
+  transform: scale(1.04);
 }
 
 .skills li {
-  background: #dcdde1;
-  padding: 10px;
-  border-radius: 5px;
-  text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: 18px;
+  color: var(--muted);
 }
 
-.skills li:hover {
-  transform: translateY(-5px) scale(1.05);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-  background: #2a2a2a;
-  color: #ffffff;
+.skills span {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--ink);
+  font-weight: 700;
 }
 
-#education a {
+.timeline {
+  display: grid;
+  gap: 16px;
+}
+
+.timeline article {
+  padding: 20px 24px;
+  border-left: 4px solid var(--teal);
+}
+
+.education-link {
+  display: flex;
+  align-items: center;
+  color: inherit;
   text-decoration: none;
-  color: #273c75;   /* 藍色 */
-  transition: color 0.3s ease;
 }
 
-#education a:hover {
-  color: #0097e6;   /* hover 亮藍 */
-  text-decoration: underline;
+.education-link:hover h3 {
+  color: var(--teal);
+}
+
+.period,
+.position {
+  display: block;
+  color: var(--teal);
+  font-size: 0.9rem;
+  font-weight: 700;
 }
 
 .experience-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
-  margin-top: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
 }
 
-.experience-card {
-  background: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  transition: 
-    transform 0.3s ease,
-    box-shadow 0.3s ease,
-    background-color 0.4s ease,
-    color 0.4s ease; /* 背景與文字也平滑過渡 */
+.experience-card,
+.card,
+.achievement-grid article {
+  padding: 22px;
 }
 
-.experience-card:hover {
-  background: #2a2a2a;
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-  color: #ffffff;
+.experience-card p:not(.position),
+.card p,
+.achievement-grid p,
+.leadership-list {
+  color: var(--muted);
 }
 
-.experience-card:hover .job {
-  color: #ffffff;
-}
-
-.experience-card h3 {
-  margin: 0 0 8px;
-  font-size: 1.1em;
-  color: #2f3640;
-}
-
-.experience-card .position {
-  font-size: 0.9em;
-  color: #ffffff;
-}
-
-/* Projects - Card Design */
 .projects-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 20px;
-  margin-top: 20px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .card a {
-  display: block;            /* 讓整張卡片都能點 */
-  text-decoration: none;     /* 移除底線 */
-  color: inherit;            /* 保持原來字體顏色 */
+  display: block;
+  text-decoration: none;
 }
 
-.card a:hover {
-  color: #273c75;            /* hover 時換顏色 */
+.card.featured {
+  border-top: 4px solid var(--teal);
 }
 
-.card {
-  background: #fff;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+.card strong {
+  color: var(--ink);
 }
 
-.card h3 {
-  margin-top: 0;
-  color: #273c75;
+.achievement-grid {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 }
 
-.card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+.leadership-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 12px 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.leadership-list li {
+  padding: 18px 20px;
 }
 
 footer {
-  text-align: center;
-  padding: 20px;
   margin-top: 40px;
-  background: #dcdde1;
-  font-size: 0.9em;
+  padding: 26px 24px;
+  background: #e7ebf1;
+  color: var(--muted);
+  text-align: center;
+  font-size: 0.92rem;
+}
+
+.back-to-top {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 5;
+  display: inline-flex;
+  width: 46px;
+  height: 46px;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 50%;
+  background: var(--navy);
+  color: #fff;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(10px);
+  transition: opacity 0.2s ease, transform 0.2s ease, background 0.2s ease;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  background: var(--teal);
+}
+
+@media (max-width: 760px) {
+  .hero {
+    min-height: 620px;
+    padding: 20px 18px 56px;
+  }
+
+  .topbar {
+    justify-content: center;
+    gap: 14px;
+    font-size: 0.86rem;
+  }
+
+  .hero-content {
+    margin-top: 58px;
+  }
+
+  .hero h1 {
+    min-height: 72px;
+  }
+
+  .timeline article {
+    align-items: flex-start;
+  }
+
+  .education-logo {
+    width: 62px;
+    height: 62px;
+    margin-right: 14px;
+  }
+
+  .intro-section,
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  main {
+    padding: 34px 18px 18px;
+  }
+
+  .back-to-top {
+    right: 18px;
+    bottom: 18px;
+  }
+
+  .section {
+    padding: 36px 0;
+  }
 }
