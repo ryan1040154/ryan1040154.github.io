@@ -7,7 +7,7 @@
   <title>Ryan Chuang | Portfolio</title>
   <link rel="preconnect" href="https://cdnjs.cloudflare.com">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="css/style.css?v=20260512-4">
+  <link rel="stylesheet" href="css/style.css?v=20260518-3">
   <link rel="icon" type="image/png" href="images/favicon.png">
   <link rel="apple-touch-icon" href="images/favicon.png">
 </head>
@@ -15,13 +15,20 @@
   <header class="hero">
     <canvas id="triangle-bg" aria-hidden="true"></canvas>
     <nav class="topbar" aria-label="Primary navigation">
-      <a href="#summary">Summary</a>
-      <a href="#experience">Experience</a>
-      <a href="#projects">Projects</a>
-      <a href="#leadership">Leadership</a>
-      <div class="language-switch" aria-label="Language switch">
-        <span class="active">EN</span>
-        <a href="zh/index.html">中文</a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Open navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <div class="nav-links" id="primary-nav">
+        <a href="#summary">Summary</a>
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#leadership">Leadership</a>
+        <div class="language-switch" aria-label="Language switch">
+          <span class="active">EN</span>
+          <a href="zh/index.html">中文</a>
+        </div>
       </div>
     </nav>
 
@@ -53,12 +60,10 @@
         <h2>Building practical systems across enterprise workflows, LLM applications, and security.</h2>
       </div>
       <p>
-        I am a graduate student in Information Management at NTUST with hands-on experience in SAP ERP implementation,
-        digital transformation, LLM-based applications, AI-enabled computer vision, and cybersecurity-oriented system
-        thinking. My work combines project management, enterprise systems, and applied development, with a focus on
-        turning technical ideas into reliable business outcomes. Recently, I have focused on retrieval-augmented
-        generation, MCP tool-calling workflows, and domain-specific AI systems that can operate with stronger data
-        security and governance requirements.
+        I am an Information Management graduate student at NTUST with hands-on experience in SAP ERP, digital
+        transformation, LLM applications, computer vision, and AI security. My work focuses on turning technical ideas
+        into reliable systems, especially through RAG, MCP tool-calling workflows, and domain-specific AI solutions
+        designed with data security and governance in mind.
       </p>
     </section>
 
@@ -240,6 +245,6 @@
     <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
   </button>
 
-  <script src="js/script.js?v=20260512-4"></script>
+  <script src="js/script.js?v=20260518-3"></script>
 </body>
 </html>

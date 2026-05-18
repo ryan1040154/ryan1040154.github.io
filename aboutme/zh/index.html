@@ -7,7 +7,7 @@
   <title>莊宸安 Ryan Chuang | Portfolio</title>
   <link rel="preconnect" href="https://cdnjs.cloudflare.com">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="../css/style.css?v=20260512-4">
+  <link rel="stylesheet" href="../css/style.css?v=20260518-3">
   <link rel="icon" type="image/png" href="../images/favicon.png">
   <link rel="apple-touch-icon" href="../images/favicon.png">
 </head>
@@ -15,13 +15,20 @@
   <header class="hero">
     <canvas id="triangle-bg" aria-hidden="true"></canvas>
     <nav class="topbar" aria-label="主要導覽">
-      <a href="#summary">關於我</a>
-      <a href="#experience">實務經歷</a>
-      <a href="#projects">專案作品</a>
-      <a href="#leadership">團隊領導</a>
-      <div class="language-switch" aria-label="語言切換">
-        <a href="../index.html">EN</a>
-        <span class="active">中文</span>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="開啟導覽選單">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <div class="nav-links" id="primary-nav">
+        <a href="#summary">關於我</a>
+        <a href="#experience">實務經歷</a>
+        <a href="#projects">專案作品</a>
+        <a href="#leadership">團隊領導</a>
+        <div class="language-switch" aria-label="語言切換">
+          <a href="../index.html">EN</a>
+          <span class="active">中文</span>
+        </div>
       </div>
     </nav>
 
@@ -238,6 +245,6 @@
     <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
   </button>
 
-  <script src="../js/script.js?v=20260512-4"></script>
+  <script src="../js/script.js?v=20260518-3"></script>
 </body>
 </html>

@@ -3,6 +3,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const locationText = document.querySelector(".location-text");
   const canvas = document.getElementById("triangle-bg");
   const backToTop = document.querySelector(".back-to-top");
+  const topbar = document.querySelector(".topbar");
+  const navToggle = document.querySelector(".nav-toggle");
 
   if (locationText) {
     setTimeout(() => {
@@ -42,6 +44,30 @@ document.addEventListener("DOMContentLoaded", () => {
         top: 0,
         behavior: "smooth",
       });
+    });
+  }
+
+  if (topbar && navToggle) {
+    const closeMenu = () => {
+      topbar.classList.remove("open");
+      document.body.classList.remove("nav-open");
+      navToggle.setAttribute("aria-expanded", "false");
+    };
+
+    navToggle.addEventListener("click", () => {
+      const isOpen = topbar.classList.toggle("open");
+      document.body.classList.toggle("nav-open", isOpen);
+      navToggle.setAttribute("aria-expanded", String(isOpen));
+    });
+
+    topbar.querySelectorAll(".nav-links a").forEach((link) => {
+      link.addEventListener("click", closeMenu);
+    });
+
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 760) {
+        closeMenu();
+      }
     });
   }
 
