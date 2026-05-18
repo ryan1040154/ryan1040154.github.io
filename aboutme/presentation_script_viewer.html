@@ -1,0 +1,223 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans)}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+.shell{display:flex;gap:0;min-height:600px;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden;background:var(--color-background-primary)}
+.sidebar{width:200px;flex-shrink:0;border-right:0.5px solid var(--color-border-tertiary);overflow-y:auto;background:var(--color-background-secondary)}
+.sidebar-header{padding:12px 14px;font-size:11px;font-weight:500;color:var(--color-text-tertiary);letter-spacing:.06em;border-bottom:0.5px solid var(--color-border-tertiary);text-transform:uppercase}
+.nav-item{display:flex;align-items:flex-start;gap:8px;padding:9px 14px;cursor:pointer;border-bottom:0.5px solid var(--color-border-tertiary);transition:background .15s}
+.nav-item:hover{background:var(--color-background-primary)}
+.nav-item.active{background:var(--color-background-primary);border-left:2px solid #378ADD}
+.nav-item.active .nav-num{color:#185FA5}
+.nav-num{font-size:11px;font-weight:500;color:var(--color-text-tertiary);min-width:18px;padding-top:1px}
+.nav-title{font-size:12px;color:var(--color-text-secondary);line-height:1.4}
+.nav-item.active .nav-title{color:var(--color-text-primary);font-weight:500}
+.main{flex:1;display:flex;flex-direction:column;min-width:0}
+.main-header{padding:16px 24px 12px;border-bottom:0.5px solid var(--color-border-tertiary);display:flex;align-items:center;gap:12px}
+.slide-badge{background:#E6F1FB;color:#185FA5;font-size:11px;font-weight:500;padding:3px 10px;border-radius:20px;white-space:nowrap}
+.slide-title-text{font-size:15px;font-weight:500;color:var(--color-text-primary)}
+.content{flex:1;padding:20px 24px;overflow-y:auto}
+.script-para{font-size:14px;color:var(--color-text-primary);line-height:1.85;margin-bottom:1.1rem}
+.script-para:last-child{margin-bottom:0}
+.highlight{background:#E6F1FB;color:#0C447C;padding:1px 5px;border-radius:4px;font-weight:500}
+.future-tag{background:#EEEDFE;color:#3C3489;padding:1px 6px;border-radius:4px;font-size:12px;font-weight:500}
+.footer{padding:10px 24px;border-top:0.5px solid var(--color-border-tertiary);display:flex;align-items:center;justify-content:space-between}
+.nav-btns{display:flex;gap:6px}
+.nav-btns button{font-size:12px;padding:5px 14px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-secondary);background:transparent;color:var(--color-text-secondary);cursor:pointer}
+.nav-btns button:hover{background:var(--color-background-secondary)}
+.nav-btns button:disabled{opacity:.35;cursor:default}
+.counter{font-size:12px;color:var(--color-text-tertiary)}
+</style>
+
+<h2 class="sr-only">AMD-ITRI 結案報告逐字稿，共 13 頁，可逐頁瀏覽</h2>
+
+<div class="shell">
+  <div class="sidebar">
+    <div class="sidebar-header">投影片</div>
+    <div id="nav-list"></div>
+  </div>
+  <div class="main">
+    <div class="main-header">
+      <span class="slide-badge" id="badge">第 1 頁</span>
+      <span class="slide-title-text" id="header-title"></span>
+    </div>
+    <div class="content" id="content"></div>
+    <div class="footer">
+      <div class="nav-btns">
+        <button id="btn-prev" onclick="go(-1)">← 上一頁</button>
+        <button id="btn-next" onclick="go(1)">下一頁 →</button>
+      </div>
+      <span class="counter" id="counter"></span>
+    </div>
+  </div>
+</div>
+
+<script>
+const slides = [
+  {
+    title:"封面",
+    sub:"AMD-ITRI 高速運算開放平台 結案報告",
+    paras:[
+      "大家好，我是來自臺科大資管系虎智科技團隊的報告人。今天很榮幸有機會在這裡向大家報告我們這次參與 AMD-ITRI 高速運算開放平台的成果。",
+      "我們的參與梯次是第二梯次，使用期間從民國 115 年 3 月 25 日到 4 月 30 日。申請單位是臺科大資管系林筱玫老師的團隊，以及虎智科技。",
+      "這次的核心目標，是利用 <b>AMD MI300X</b> 這台高效能 GPU 平台，來加速我們在地政文件領域的 OCR 辨識工作。接下來，我將一一說明我們的專案內容、技術做法，以及實際跑出來的效能數據。"
+    ]
+  },
+  {
+    title:"專案概覽",
+    sub:"Project Overview",
+    paras:[
+      "我們這次的專案主題，是「地政法規與公文書自動化解析之 AI 應用」，核心技術是 <b>OCR</b>，也就是光學字元辨識。",
+      "為什麼選這個題目？因為地政事務所每天需要處理大量的 PDF 文件和掃描影像，例如土地登記謄本、權狀、法律文書等，這些文件的數位化目前還高度依賴人工，效率非常有限。",
+      "我們的做法是導入 <b>PaddleOCR</b> 與 <b>PaddleOCR-VL</b> 這兩個文件理解模型，搭配 AMD MI300X GPU 以及 MLSteam 異質運算平台。",
+      "最終的成果相當顯著：文件解析時間從原本的 <span class='highlight'>564 秒</span>，縮短到只需要 <span class='highlight'>26 秒</span>，最高加速倍率達到 <span class='highlight'>21 倍</span>。這個數字對於需要大量文件處理的地政單位來說，是非常有實際意義的進步。"
+    ]
+  },
+  {
+    title:"具體產出",
+    sub:"Deliverables",
+    paras:[
+      "這次專案的具體產出，我分三個部分來說明。",
+      "第一個，也是我們這次實際完成的核心成果，是建立了一套 <b>OCR 系統</b>，可以將地政法規 PDF 與公文書自動轉換為可搜尋的文字，並且輸出為結構化的 JSON 資料格式，方便後續應用程式串接使用。",
+      "第二個是語意向量資料庫，這個部分要特別說明——<span class='future-tag'>未來願景</span> 這是我們的未來願景，目前尚未實作。我們計畫將辨識後的文字建立 Embedding 向量，並使用 FAISS 來支援快速語意檢索。",
+      "第三個是 <b>GPU 加速文件解析流程</b>，這個也已經實際完成。透過 AMD MI300X GPU 平台，我們讓整體處理時間最高提升了約 <span class='highlight'>21 倍</span>，大幅改善了系統的實用性。"
+    ]
+  },
+  {
+    title:"此平台帶來之效益",
+    sub:"Platform Benefits",
+    paras:[
+      "接下來看一下具體的效能數字。",
+      "在傳統個人電腦環境，也就是搭載 Ryzen AI 9 的設備上，同一份文件需要約 <span class='highlight'>564 秒</span>才能處理完畢。",
+      "導入 AMD MI300X GPU 平台之後，處理時間縮短至約 <span class='highlight'>26 秒</span>，整體效能提升了大約 <span class='highlight'>21 倍</span>。",
+      "這個改變帶來的不只是速度的提升。原本系統只能一次處理一份文件，現在升級為可以支援多文件並行處理，也就是所謂的高吞吐量模式，可以同時接受多位使用者的上傳需求，大幅提升了整體的作業效率。"
+    ]
+  },
+  {
+    title:"重要效益",
+    sub:"Key Benefits",
+    paras:[
+      "這一頁我想從問題、解法、到亮點，完整說明我們的思路。",
+      "首先是現有的痛點。傳統地政法規文件大多是 PDF 或掃描影像，需要人工閱覽才能查找資料，效率很低。即使用了一般的 OCR 工具，也缺乏語意理解的能力，沒辦法支援智慧查詢。",
+      "我們的解決方案，是導入 PaddleOCR 與 PaddleOCR-VL 文件理解模型，搭配 AMD MI300X GPU 平台，實現地政文件的高速數位化。至於更進一步的智慧問答功能，我們計畫未來整合 RAG 技術，讓使用者可以用自然語言問問題。<span class='future-tag'>未來計畫</span>",
+      "技術亮點方面，我們建立了一套完整的流程：PDF 輸入 → OCR 辨識 → JSON 格式的結構化資料。加上 AMD MI300X GPU 加速，整體效能從 564 秒縮短到 26 秒，提升了約 <span class='highlight'>21 倍</span>。"
+    ]
+  },
+  {
+    title:"技術擴散",
+    sub:"Technology Diffusion",
+    paras:[
+      "這個系統的應用範圍其實不只限於地政領域。",
+      "我們的核心能力是文件理解與語意檢索，結合了 OCR、向量資料庫以及生成式 AI 技術。這套技術架構可以廣泛應用在任何需要大量處理文件的產業，例如法律、金融、保險，還有各種政府機關，協助這些單位把傳統文件作業流程，轉型為 AI 驅動的知識服務系統。",
+      "在教育應用方面，這項技術也可以用來建構教材解析與智慧問答系統，協助學生理解複雜的法規條文或案例，提升學習效率與互動性。",
+      "另外，因為我們採用了 GPU 加速與雲端部署架構，系統本身具備很好的擴展性，可以支援多使用者同時使用的高併發需求，非常適合在產業和學術場域落地應用。"
+    ]
+  },
+  {
+    title:"系統架構設計",
+    sub:"System Architecture",
+    paras:[
+      "接下來介紹我們的系統架構。",
+      "整個文件處理流程是這樣的：首先輸入一份 PDF 文件，我們以 29 頁的地政法規文件作為測試資料。系統的前端預處理模組會把每一頁轉換為高品質的影像，接著送入 PaddleOCR 核心引擎，由它依序進行文字偵測與辨識，最終輸出為結構化文字。",
+      "我這邊要特別說明的是，我們這次的工作聚焦在高效的 <b>OCR 數位化</b>這個環節。也就是說，我們已經建立了從 PDF 到結構化文字的完整流程。",
+      "至於更後端的 RAG 整合——包括向量資料庫建立和智慧問答——<span class='future-tag'>未來計畫</span> 這是我們的未來計畫。我們的架構在設計上已經為這個擴展做好了準備，現在輸出的結構化資料就是未來 RAG 系統的數據基礎。"
+    ]
+  },
+  {
+    title:"PaddleOCR-VL × AMD GPU",
+    sub:"Implementation Reference",
+    paras:[
+      "在實作方面，我們的實驗參考了 OneClickAMD 提供的 ppocr_vl_demo.ipynb 這份範例 Notebook。",
+      "這份範例展示了如何在 AMD GPU 環境中執行 PaddleOCR-VL 文件理解模型，涵蓋了從模型載入、圖片與 PDF 輸入、OCR 解析，到結果輸出的完整流程。",
+      "我們以這份範例作為基礎，在 MI300X 平台上進行 PaddleOCR-VL 的測試，並進一步把它延伸應用到地政法規 PDF 的文件解析，以及不同運算環境之間的效能比較。",
+      "可以說，OneClickAMD 提供的這份資源，讓我們能夠很快速地在 MI300X 上跑起來，大幅降低了環境建置的門檻。"
+    ]
+  },
+  {
+    title:"實驗設計與環境設定",
+    sub:"Experiment Design",
+    paras:[
+      "為了量化不同運算架構的效能差異，我們設計了一個對照實驗。",
+      "測試資料選用一份 <span class='highlight'>29 頁</span>的高解析度地政法規 PDF，並在兩種不同的運算環境下，執行完全相同的 PaddleOCR 模型。",
+      "第一個是<b>邊緣運算環境</b>，也就是一般的個人電腦，搭載 Ryzen AI 9 處理器，代表一般企業或事務所現有的設備水準。",
+      "第二個是<b>高效能運算環境</b>，也就是 AMD MI300X 平台，透過 MLSteam 雲端環境運作，支援 CPU 與 GPU 加速兩種模式。透過這樣的對照設計，我們可以清楚地觀察到不同硬體等級對 OCR 任務的效能影響。"
+    ]
+  },
+  {
+    title:"實驗結果數據",
+    sub:"Experiment Results",
+    paras:[
+      "這一頁是我們最核心的實驗數據，請大家特別注意這張表格。",
+      "在個人電腦環境，也就是 Ryzen AI PC，平均耗時 <span class='highlight'>564.24 秒</span>，換算下來大概是 9 分鐘 24 秒。",
+      "同樣的任務放到 MI300X 平台上，用 CPU 模式跑，時間縮短到 104.16 秒，加速了大約 5.4 倍。而使用 GPU 加速之後，處理時間進一步壓縮到只需要 <span class='highlight'>25.46 秒</span>，對比個人電腦大約是 22 倍的加速。",
+      "這邊有一個我們觀察到的現象值得一提：在 <b>GPU warm-up</b> 完成之後，GPU 的推論時間會顯著下降。這表示 MI300X 特別適合批次文件處理或長時間連續作業的場景，因為跑得越久，效率越高。"
+    ]
+  },
+  {
+    title:"平台效益與應用價值",
+    sub:"Platform Value",
+    paras:[
+      "從這次的實驗成果，我們可以歸納出幾個對不同角色的實際效益。",
+      "對<b>地政產業</b>來說，最直接的改變是門檻降低了。過去人工閱覽的作業方式，現在可以轉向 AI 輔助決策，讓工作人員把時間花在更有價值的事情上。",
+      "對<b>開發者</b>來說，高效能的算力平台讓他們可以更快完成模型驗證與迭代，縮短整個產品的開發週期，更快把解決方案推向市場。",
+      "對<b>終端使用者</b>來說，原本需要等待將近十分鐘才能拿到辨識結果，現在幾乎是即時的回饋，整個數位化工作流程的體驗大幅提升。系統也從單一任務處理升級為多使用者並行作業，這對實際部署來說非常關鍵。"
+    ]
+  },
+  {
+    title:"未來發展與 RAG 整合",
+    sub:"Future Roadmap",
+    paras:[
+      "最後，我來說明我們對這個系統的未來規劃。",
+      "我們這次的成果——高效的 OCR 數位化——只是整個智慧地政系統的第一步。",
+      "接下來，我們計畫將辨識後的結構化資料，整合到 <b>RAG 架構</b>中，也就是 Retrieval-Augmented Generation，開發一套專屬的<b>地政法規自動問答助理</b>。<span class='future-tag'>未來計畫</span>",
+      "這個系統實現之後，使用者只需要用自然語言提問，系統就能從海量的數位化文件中精準找到相關法條或記錄，並給出回答。我們相信，OCR 是地基，RAG 是上層建築，兩者結合加上 AMD MI300X 的強大算力，將能夠徹底改變地政產業處理法律資訊的方式。"
+    ]
+  },
+  {
+    title:"研究動機（補充）",
+    sub:"Research Motivation",
+    paras:[
+      "最後這一頁補充說明一下我們當初的研究動機，也讓大家更了解這個題目的背景。",
+      "地政領域的日常作業，涉及大量的土地登記謄本、權狀以及法律訴訟文件。這些資料大多以非結構化的 PDF 或掃描影像形式存在，目前業界仍高度仰賴人工登錄與閱覽，不僅耗時費力，也容易產生人為錯誤。",
+      "要實現自動化管理，我們需要一套精準的 OCR 數位化方案。但問題是，高精度的深度學習模型對運算資源有極高的需求，傳統個人電腦在面對大批量文件時，<b>處理效率往往成為系統能不能真正落地的最大瓶頸</b>。",
+      "這就是為什麼我們這次選擇與 AMD-ITRI 合作，導入 MI300X 高效能運算平台的原因。事實也證明，平台帶來的效能提升是真實且顯著的，讓我們的解決方案從「技術上可行」，走向了「實際上可用」。以上就是我們這次的完整報告，感謝各位的聆聽，也感謝 AMD-ITRI 提供這樣的平台資源。"
+    ]
+  }
+];
+
+let cur = 0;
+
+function render() {
+  const s = slides[cur];
+  document.getElementById('badge').textContent = `第 ${cur+1} 頁`;
+  document.getElementById('header-title').textContent = `${s.title}　${s.sub}`;
+  document.getElementById('counter').textContent = `${cur+1} / ${slides.length}`;
+  document.getElementById('btn-prev').disabled = cur === 0;
+  document.getElementById('btn-next').disabled = cur === slides.length - 1;
+  const c = document.getElementById('content');
+  c.innerHTML = s.paras.map(p => `<p class="script-para">${p}</p>`).join('');
+  document.querySelectorAll('.nav-item').forEach((el,i) => el.classList.toggle('active', i===cur));
+}
+
+function go(d) {
+  const n = cur + d;
+  if (n >= 0 && n < slides.length) { cur = n; render(); }
+}
+
+const nav = document.getElementById('nav-list');
+slides.forEach((s,i) => {
+  const div = document.createElement('div');
+  div.className = 'nav-item' + (i===0?' active':'');
+  div.innerHTML = `<span class="nav-num">${i+1}</span><span class="nav-title">${s.title}</span>`;
+  div.onclick = () => { cur = i; render(); };
+  nav.appendChild(div);
+});
+
+render();
+
+document.addEventListener('keydown', e => {
+  if (e.key==='ArrowRight'||e.key==='ArrowDown') go(1);
+  if (e.key==='ArrowLeft'||e.key==='ArrowUp') go(-1);
+});
+</script>
