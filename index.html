@@ -1,13 +1,251 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="refresh" content="0; url=aboutme/">
-  <title>Ryan Chuang</title>
-  <link rel="canonical" href="aboutme/">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Ryan Chuang portfolio and resume website focused on information management, SAP ERP, AI, cybersecurity, and digital transformation." />
+  <title>Ryan Chuang | Portfolio</title>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="canonical" href="./">
+  <link rel="stylesheet" href="aboutme/css/style.css?v=20260518-3">
+  <link rel="icon" type="image/png" href="aboutme/images/favicon.png">
+  <link rel="apple-touch-icon" href="aboutme/images/favicon.png">
 </head>
 <body>
-  <p><a href="aboutme/">Ryan Chuang Portfolio</a></p>
+  <header class="hero">
+    <canvas id="triangle-bg" aria-hidden="true"></canvas>
+    <nav class="topbar" aria-label="Primary navigation">
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Open navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <div class="nav-links" id="primary-nav">
+        <a href="#summary">Summary</a>
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#leadership">Leadership</a>
+        <div class="language-switch" aria-label="Language switch">
+          <span class="active">EN</span>
+          <a href="aboutme/zh/">中文</a>
+        </div>
+      </div>
+    </nav>
+
+    <section class="hero-content">
+      <img src="aboutme/images/me.jpg" alt="Ryan Chuang" class="profile-photo">
+      <p class="eyebrow">Enterprise Systems | LLM Applications | AI Security</p>
+      <h1><span id="typewriter">Ryan Chuang</span></h1>
+      <p class="name-local">莊宸安</p>
+      <p class="quote">Motivation will almost always beat mere talent.</p>
+
+      <div class="contact" aria-label="Contact links">
+        <a href="mailto:rzworkplace@gmail.com" class="icon-btn email" aria-label="Email Ryan">
+          <i class="fa-solid fa-envelope"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/ryan-chuang-business" target="_blank" rel="noopener" class="icon-btn linkedin" aria-label="Ryan Chuang on LinkedIn">
+          <i class="fa-brands fa-linkedin"></i>
+        </a>
+        <span class="location-text">
+          <i class="fa-solid fa-location-dot" aria-hidden="true"></i> Da'an, Taipei 106, Taiwan
+        </span>
+      </div>
+    </section>
+  </header>
+
+  <main>
+    <section id="summary" class="section intro-section">
+      <div>
+        <p class="section-kicker">Professional Summary</p>
+        <h2>Building practical systems across enterprise workflows, LLM applications, and security.</h2>
+      </div>
+      <p>
+        I am an Information Management graduate student at NTUST with hands-on experience in SAP ERP, digital
+        transformation, LLM applications, computer vision, and AI security. My work focuses on turning technical ideas
+        into reliable systems, especially through RAG, MCP tool-calling workflows, and domain-specific AI solutions
+        designed with data security and governance in mind.
+      </p>
+    </section>
+
+    <section id="skills" class="section">
+      <p class="section-kicker">Core Skills</p>
+      <h2>Technical and management toolkit</h2>
+      <ul class="skills">
+        <li><span>Programming</span>C++, Python, HTML, CSS, JavaScript, SQL, R</li>
+        <li><span>LLM Applications</span>RAG, MCP, tool calling, OpenAI-compatible APIs, prompt design</li>
+        <li><span>AI and Vision</span>YOLOv5, OpenCV, OpenPose, quad-rotor vision</li>
+        <li><span>Enterprise Systems</span>SAP S/4HANA, ABAP, FI, IMG configuration</li>
+        <li><span>Automation</span>Python RPA, N8N, SQLite-backed local tools, workflow design</li>
+        <li><span>Security and Governance</span>AI security, data governance, on-premises AI, risk analysis</li>
+        <li><span>Leadership</span>Project management, teaching, cross-team coordination</li>
+      </ul>
+    </section>
+
+    <section id="education" class="section">
+      <p class="section-kicker">Education</p>
+      <h2>Academic background</h2>
+      <div class="timeline">
+        <article>
+          <a href="https://www.ntust.edu.tw/" target="_blank" rel="noopener" class="education-link" aria-label="National Taiwan University of Science and Technology website">
+          <img src="aboutme/images/NTUST.png" alt="NTUST logo" class="card-logo education-logo">
+          <div>
+            <span class="period">Present</span>
+            <h3>National Taiwan University of Science and Technology</h3>
+            <p>Master of Science in Information Management</p>
+          </div>
+          </a>
+        </article>
+        <article>
+          <a href="https://www.ndhu.edu.tw/" target="_blank" rel="noopener" class="education-link" aria-label="National Dong Hwa University website">
+          <img src="aboutme/images/NDHU.png" alt="NDHU logo" class="card-logo education-logo">
+          <div>
+            <span class="period">Graduated June 2025</span>
+            <h3>National Dong Hwa University</h3>
+            <p>Department of Information Management</p>
+          </div>
+          </a>
+        </article>
+      </div>
+    </section>
+
+    <section id="experience" class="section">
+      <p class="section-kicker">Experience</p>
+      <h2>Practical work and teaching</h2>
+      <div class="experience-list">
+        <article class="experience-card">
+          <div class="logo-frame"><img src="aboutme/images/TSMC.png" alt="TSMC logo" class="card-logo"></div>
+          <h3>TSMC BSID</h3>
+          <p class="position">SAP System Engineer</p>
+          <p>Worked on SAP system engineering tasks in a high-standard enterprise environment, bridging business process needs with reliable system support.</p>
+        </article>
+        <article class="experience-card">
+          <div class="logo-frame"><img src="aboutme/images/PWC.png" alt="PwC logo" class="card-logo wide-logo"></div>
+          <h3>PwC Taiwan</h3>
+          <p class="position">Digital Transformation Project</p>
+          <p>Contributed to enterprise digital transformation work with a focus on practical technology adoption and process improvement.</p>
+        </article>
+        <article class="experience-card">
+          <div class="logo-frame"><img src="aboutme/images/CERPS.png" alt="CERPS logo" class="card-logo wide-logo"></div>
+          <h3>CERPS</h3>
+          <p class="position">SAP Consultant Intern</p>
+          <p>Worked on SAP-related consulting tasks, ERP module learning, and implementation support across enterprise scenarios.</p>
+        </article>
+        <article class="experience-card">
+          <div class="logo-frame"><img src="aboutme/images/watsons.png" alt="Watsons logo" class="card-logo wide-logo"></div>
+          <h3>Watsons Taiwan Headquarters</h3>
+          <p class="position">IT Department Intern</p>
+          <p>Supported IT operations and learned how enterprise technology teams maintain services in a retail headquarters environment.</p>
+        </article>
+        <article class="experience-card">
+          <div class="logo-frame"><img src="aboutme/images/桃園地政士事務所.png" alt="Taoyuan Land Administration Office logo" class="card-logo"></div>
+          <h3>Taoyuan Land Administration Office</h3>
+          <p class="position">Information Division Intern</p>
+          <p>Assisted public-sector information work and gained exposure to system operations in government service workflows.</p>
+        </article>
+        <article class="experience-card">
+          <div class="logo-frame"><img src="aboutme/images/logiscool.png" alt="Logiscool logo" class="card-logo wide-logo"></div>
+          <h3>Logiscool</h3>
+          <p class="position">Children's Programming Instructor</p>
+          <p>Taught programming concepts through structured exercises and creative projects for elementary-school students.</p>
+        </article>
+        <article class="experience-card">
+          <div class="logo-frame"><img src="aboutme/images/NDHU_ERP.png" alt="NDHU ERP Student Team logo" class="card-logo wide-logo"></div>
+          <h3>ERP Student Team, NDHU</h3>
+          <p class="position">SAP FI and ABAP Lecturer</p>
+          <p>Delivered SAP Financial Accounting and ABAP programming training after completing multi-module SAP preparation.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="projects" class="section">
+      <p class="section-kicker">Selected Projects</p>
+      <h2>Projects with implementation depth</h2>
+      <div class="projects-grid">
+        <article class="card featured">
+          <h3>Taiwan-Land-Legal-AI</h3>
+          <p>Developed an AI legal Q&amp;A system for land administration agents. Users ask questions in natural language, and the system uses MCP to call legal search tools, query a Taiwan law database, and generate professional answers with article citations.</p>
+          <p><strong>Scope:</strong> Land Act, Civil Code, Equalization of Land Rights Act, and related regulations</p>
+          <p><strong>Highlights:</strong> On-premises architecture for data security and sovereign AI, MCP architecture, streaming tool calls, retrieval-first answering, OpenAI-compatible model interface</p>
+        </article>
+        <article class="card featured">
+          <a href="https://youtu.be/cLxOIiYe_-Q" target="_blank" rel="noopener">
+            <h3>Aerial Vision Search-and-Rescue UAV</h3>
+            <p>Led the graduation project team in building a UAV system for mountain search-and-rescue and transport scenarios. The system combines real-time image recognition, target image upload, drone control, route planning, and mission-specific operation modes.</p>
+            <p><strong>Role:</strong> Team lead, YOLOv5 model training, OpenPose integration, PID control, route planning, autonomous flight, and target selection flow</p>
+            <p><strong>Outcome:</strong> Second place in the Information Management graduation project presentation, honorable mention in the Taoyuan student entrepreneurship competition, and recognition in Hualien local industry innovation activities</p>
+          </a>
+        </article>
+        <article class="card">
+          <h3>SAP Product Carbon Footprint System</h3>
+          <p>Managed an enterprise SAP implementation project designed to calculate product carbon footprints and support companies facing international carbon-related requirements such as CBAM and customer ESG demands.</p>
+          <p><strong>Role:</strong> Project manager, SAP IMG configuration, enterprise structure setup, user authorization, financial settings, ABAP development, Python RPA, and custom carbon coefficient logic</p>
+          <p><strong>Outcome:</strong> Achieved second place in the final project competition and prepared the work for academic and practical ERP conference submission</p>
+        </article>
+        <article class="card">
+          <h3>VIP Exchange Program</h3>
+          <p>Represented NDHU's ERP Student Team in an international academic exchange with Inha University in Korea. The project required foreign-language discussion, technical presentation, and cross-cultural teamwork.</p>
+          <p><strong>Focus:</strong> Data analysis, business decision-making, system optimization, project reporting, and professional communication across teams</p>
+          <p><strong>Growth:</strong> Strengthened the ability to explain technical and business ideas clearly in an international collaboration setting</p>
+        </article>
+        <article class="card">
+          <h3>Capstone and USR Project</h3>
+          <p>Coordinated the 25th Information Management graduation project exhibition and participated in the Hualien-focused university social responsibility project, connecting technical work with local digital inclusion needs.</p>
+          <p><strong>Role:</strong> Project lead, schedule planning, member coordination, event preparation, public presentation, and cross-team communication</p>
+          <p><strong>Impact:</strong> Built practical leadership experience under time pressure, limited resources, and multi-stakeholder expectations</p>
+        </article>
+        <article class="card">
+          <h3>Web and Automation Prototypes</h3>
+          <p>Built multiple course and side-project prototypes, including a concert ticketing database system, ASIEE startup coffee company website, NDHU driving school Line Bot, Unity driving-license simulation, and department website renewal work.</p>
+          <p><strong>Tech:</strong> Database design, web frontend and backend development, Line Bot automation, Unity simulation, and workflow-oriented system design</p>
+          <p><strong>Focus:</strong> Translating user scenarios into usable systems and connecting software implementation with real operational needs</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="achievements" class="section">
+      <p class="section-kicker">Achievements</p>
+      <h2>Competitions and certifications</h2>
+      <div class="achievement-grid">
+        <article>
+          <h3>SAP S/4HANA ERP Application Engineer</h3>
+          <p>CERPS certification in SAP S/4HANA enterprise resource planning.</p>
+        </article>
+        <article>
+          <h3>Graduation Project Presentation</h3>
+          <p>Second place for the Aerial Vision search-and-rescue UAV project.</p>
+        </article>
+        <article>
+          <h3>Taoyuan Student Entrepreneurship Competition</h3>
+          <p>Honorable mention for the Aerial Vision project.</p>
+        </article>
+        <article>
+          <h3>Hualien Local Industry Project</h3>
+          <p>Top-ten recognition and project action funding for local innovation work.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="leadership" class="section">
+      <p class="section-kicker">Leadership</p>
+      <h2>Campus and team roles</h2>
+      <ul class="leadership-list">
+        <li>President and treasurer, ERP Student Team</li>
+        <li>Project lead, 25th graduation project exhibition</li>
+        <li>Director of Public Relations, Student Association</li>
+        <li>Teaching assistant, Programming and Enterprise Networking</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Ryan Chuang. All rights reserved.</p>
+  </footer>
+
+  <button class="back-to-top" type="button" aria-label="Back to top">
+    <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
+  </button>
+
+  <script src="aboutme/js/script.js?v=20260518-3"></script>
 </body>
 </html>
