@@ -8,13 +8,13 @@
   <link rel="preconnect" href="https://cdnjs.cloudflare.com">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="canonical" href="./">
-  <link rel="stylesheet" href="aboutme/css/style.css?v=20260518-3">
+  <link rel="stylesheet" href="aboutme/css/style.css?v=20260908-15">
   <link rel="icon" type="image/png" href="aboutme/images/favicon.png">
   <link rel="apple-touch-icon" href="aboutme/images/favicon.png">
 </head>
 <body>
   <header class="hero">
-    <canvas id="triangle-bg" aria-hidden="true"></canvas>
+    <canvas id="network-bg" aria-hidden="true"></canvas>
     <nav class="topbar" aria-label="Primary navigation">
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Open navigation menu">
         <span></span>
@@ -34,22 +34,34 @@
     </nav>
 
     <section class="hero-content">
-      <img src="aboutme/images/me.jpg" alt="Ryan Chuang" class="profile-photo">
-      <p class="eyebrow">Enterprise Systems | LLM Applications | AI Security</p>
-      <h1><span id="typewriter">Ryan Chuang</span></h1>
-      <p class="name-local">莊宸安</p>
-      <p class="quote">Motivation will almost always beat mere talent.</p>
+      <button type="button" class="profile-photo" aria-label="Show lifestyle photo" aria-pressed="false">
+        <img class="portrait-original" src="aboutme/images/me.jpg" alt="" width="280" height="280">
+        <img class="portrait-lifestyle" src="aboutme/images/lifestyle.webp" alt="" width="900" height="1200" aria-hidden="true">
+      </button>
+      <div class="hero-copy">
+        <p class="eyebrow">Enterprise Systems | LLM Applications | AI Security</p>
+        <h1 class="hero-name"><span>Chen-An, Chuang</span><span lang="zh-Hant">莊宸安</span></h1>
+        <p class="quote">Motivation will almost always beat mere talent.</p>
 
-      <div class="contact" aria-label="Contact links">
-        <a href="mailto:rzworkplace@gmail.com" target="_blank" rel="noopener" class="icon-btn email" aria-label="Email Ryan">
-          <i class="fa-solid fa-envelope"></i>
-        </a>
-        <a href="https://www.linkedin.com/in/ryan-chuang-business" target="_blank" rel="noopener" class="icon-btn linkedin" aria-label="Ryan Chuang on LinkedIn">
-          <i class="fa-brands fa-linkedin"></i>
-        </a>
-        <span class="location-text">
-          <i class="fa-solid fa-location-dot" aria-hidden="true"></i> Da'an, Taipei 106, Taiwan
-        </span>
+        <div class="contact" aria-label="Contact links">
+          <div class="email-contact">
+            <a href="mailto:rzworkplace@gmail.com" target="_blank" rel="noopener" class="icon-btn email" aria-label="Compose email (opens externally)">
+              <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+            </a>
+            <div class="email-panel" hidden>
+              <button type="button" class="copy-email" aria-label="Copy email address rzworkplace@gmail.com">
+                <span class="email-address">rzworkplace@gmail.com</span>
+              </button>
+              <p class="email-status" role="status" aria-live="polite"></p>
+            </div>
+          </div>
+          <a href="https://www.linkedin.com/in/ryan-chuang-business" target="_blank" rel="noopener" class="icon-btn linkedin" aria-label="Ryan Chuang on LinkedIn">
+            <i class="fa-brands fa-linkedin"></i>
+          </a>
+          <span class="location-text">
+            <i class="fa-solid fa-location-dot" aria-hidden="true"></i> Da'an, Taipei 106, Taiwan
+          </span>
+        </div>
       </div>
     </section>
   </header>
@@ -72,7 +84,8 @@
       <p class="section-kicker">Core Skills</p>
       <h2>Technical and management toolkit</h2>
       <ul class="skills">
-        <li><span>Programming</span>C++, Python, HTML, CSS, JavaScript, SQL, R</li>
+        <li><span>Programming</span>Java, C++, Python, HTML, CSS, JavaScript, SQL, R</li>
+        <li><span>Backend &amp; Integration</span>Spring Boot, Spring AI, MCP, SAP integration</li>
         <li><span>LLM Applications</span>RAG, MCP, tool calling, OpenAI-compatible APIs, prompt design</li>
         <li><span>AI and Vision</span>YOLOv5, OpenCV, OpenPose, quad-rotor vision</li>
         <li><span>Enterprise Systems</span>SAP S/4HANA, ABAP, FI, IMG configuration</li>
@@ -112,49 +125,70 @@
     <section id="experience" class="section">
       <p class="section-kicker">Experience</p>
       <h2>Practical work and teaching</h2>
-      <div class="experience-list">
-        <article class="experience-card">
-          <div class="logo-frame"><img src="aboutme/images/TSMC.png" alt="TSMC logo" class="card-logo"></div>
-          <h3>TSMC BSID</h3>
-          <p class="position">SAP System Engineer Intern</p>
-          <p>Contributed to SAP integration modernization, AI tool development, automated interface validation, and enterprise process optimization.</p>
-        </article>
-        <article class="experience-card">
-          <div class="logo-frame"><img src="aboutme/images/PWC.png" alt="PwC logo" class="card-logo wide-logo"></div>
-          <h3>PwC Taiwan</h3>
-          <p class="position">Digital Transformation Project</p>
-          <p>Contributed to enterprise digital transformation work with a focus on practical technology adoption and process improvement.</p>
-        </article>
-        <article class="experience-card">
-          <div class="logo-frame"><img src="aboutme/images/CERPS.png" alt="CERPS logo" class="card-logo wide-logo"></div>
-          <h3>CERPS</h3>
-          <p class="position">SAP Consultant Intern</p>
-          <p>Worked on SAP-related consulting tasks, ERP module learning, and implementation support across enterprise scenarios.</p>
-        </article>
-        <article class="experience-card">
-          <div class="logo-frame"><img src="aboutme/images/watsons.png" alt="Watsons logo" class="card-logo wide-logo"></div>
-          <h3>Watsons Taiwan Headquarters</h3>
-          <p class="position">IT Department Intern</p>
-          <p>Supported IT operations and learned how enterprise technology teams maintain services in a retail headquarters environment.</p>
-        </article>
-        <article class="experience-card">
-          <div class="logo-frame"><img src="aboutme/images/桃園地政士事務所.png" alt="Taoyuan Land Administration Office logo" class="card-logo"></div>
-          <h3>Taoyuan Land Administration Office</h3>
-          <p class="position">Information Division Intern</p>
-          <p>Assisted public-sector information work and gained exposure to system operations in government service workflows.</p>
-        </article>
-        <article class="experience-card">
-          <div class="logo-frame"><img src="aboutme/images/logiscool.png" alt="Logiscool logo" class="card-logo wide-logo"></div>
-          <h3>Logiscool</h3>
-          <p class="position">Children's Programming Instructor</p>
-          <p>Taught programming concepts through structured exercises and creative projects for elementary-school students.</p>
-        </article>
-        <article class="experience-card">
-          <div class="logo-frame"><img src="aboutme/images/NDHU_ERP.png" alt="NDHU ERP Student Team logo" class="card-logo wide-logo"></div>
-          <h3>ERP Student Team, NDHU</h3>
-          <p class="position">SAP FI and ABAP Lecturer</p>
-          <p>Delivered SAP Financial Accounting and ABAP programming training after completing multi-module SAP preparation.</p>
-        </article>
+      <div class="experience-timeline">
+        <details class="experience-entry" style="--step: 0">
+          <summary>
+            <span class="experience-period">2026/07–2026/08</span>
+            <div class="logo-frame"><img src="aboutme/images/TSMC.png" alt="TSMC logo" class="card-logo wide-logo"></div>
+            <span class="experience-heading"><span class="experience-company">TSMC BSID</span><span class="position">SAP System Engineer Intern</span></span>
+            <span class="experience-expand" aria-hidden="true">+</span>
+          </summary>
+          <div class="experience-description"><p>Contributed to SAP integration modernization, AI tool development, automated interface validation, and enterprise process optimization.</p></div>
+        </details>
+        <details class="experience-entry" style="--step: 1">
+          <summary>
+            <span class="experience-period">2025/02–2025/06</span>
+            <div class="logo-frame"><img src="aboutme/images/PWC.png" alt="PwC logo" class="card-logo wide-logo"></div>
+            <span class="experience-heading"><span class="experience-company">PwC Taiwan</span><span class="position">Digital Transformation Project</span></span>
+            <span class="experience-expand" aria-hidden="true">+</span>
+          </summary>
+          <div class="experience-description"><p>Contributed to enterprise digital transformation work with a focus on practical technology adoption and process improvement.</p></div>
+        </details>
+        <details class="experience-entry" style="--step: 2">
+          <summary>
+            <span class="experience-period">2024/09–2025/01</span>
+            <div class="logo-frame"><img src="aboutme/images/logiscool.png" alt="Logiscool logo" class="card-logo wide-logo"></div>
+            <span class="experience-heading"><span class="experience-company">Logiscool</span><span class="position">Children's Programming Instructor</span></span>
+            <span class="experience-expand" aria-hidden="true">+</span>
+          </summary>
+          <div class="experience-description"><p>Taught programming concepts through structured exercises and creative projects for elementary-school students.</p></div>
+        </details>
+        <details class="experience-entry" style="--step: 3">
+          <summary>
+            <span class="experience-period">2024/07–2024/08</span>
+            <div class="logo-frame"><img src="aboutme/images/CERPS.png" alt="CERPS logo" class="card-logo wide-logo"></div>
+            <span class="experience-heading"><span class="experience-company">CERPS</span><span class="position">SAP Consultant Intern</span></span>
+            <span class="experience-expand" aria-hidden="true">+</span>
+          </summary>
+          <div class="experience-description"><p>Worked on SAP-related consulting tasks, ERP module learning, and implementation support across enterprise scenarios.</p></div>
+        </details>
+        <details class="experience-entry" style="--step: 4">
+          <summary>
+            <span class="experience-period">2023/07–2023/08</span>
+            <div class="logo-frame"><img src="aboutme/images/watsons.png" alt="Watsons logo" class="card-logo wide-logo"></div>
+            <span class="experience-heading"><span class="experience-company">Watsons Taiwan Headquarters</span><span class="position">IT Department Intern</span></span>
+            <span class="experience-expand" aria-hidden="true">+</span>
+          </summary>
+          <div class="experience-description"><p>Supported IT operations and learned how enterprise technology teams maintain services in a retail headquarters environment.</p></div>
+        </details>
+        <details class="experience-entry" style="--step: 5">
+          <summary>
+            <span class="experience-period">2022/07–2022/08</span>
+            <div class="logo-frame"><img src="aboutme/images/桃園地政士事務所.png" alt="Taoyuan City Government logo" class="card-logo wide-logo"></div>
+            <span class="experience-heading"><span class="experience-company">Taoyuan Land Administration Office</span><span class="position">Information Division Intern</span></span>
+            <span class="experience-expand" aria-hidden="true">+</span>
+          </summary>
+          <div class="experience-description"><p>Assisted public-sector information work and gained exposure to system operations in government service workflows.</p></div>
+        </details>
+        <details class="experience-entry" style="--step: 6">
+          <summary>
+            <span class="experience-period">2022–2025</span>
+            <div class="logo-frame"><img src="aboutme/images/NDHU_ERP.png" alt="NDHU ERP Student Team logo" class="card-logo wide-logo"></div>
+            <span class="experience-heading"><span class="experience-company">ERP Student Team, NDHU</span><span class="position">SAP FI and ABAP Lecturer</span></span>
+            <span class="experience-expand" aria-hidden="true">+</span>
+          </summary>
+          <div class="experience-description"><p>Delivered SAP Financial Accounting and ABAP programming training after completing multi-module SAP preparation.</p></div>
+        </details>
       </div>
     </section>
 
@@ -175,12 +209,11 @@
           <p><strong>Highlights:</strong> On-premises architecture for data security and sovereign AI, MCP architecture, streaming tool calls, retrieval-first answering, OpenAI-compatible model interface</p>
         </article>
         <article class="card featured">
-          <a href="https://youtu.be/cLxOIiYe_-Q" target="_blank" rel="noopener">
             <h3>Aerial Vision Search-and-Rescue UAV</h3>
             <p>Led the graduation project team in building a UAV system for mountain search-and-rescue and transport scenarios. The system combines real-time image recognition, target image upload, drone control, route planning, and mission-specific operation modes.</p>
             <p><strong>Role:</strong> Team lead, YOLOv5 model training, OpenPose integration, PID control, route planning, autonomous flight, and target selection flow</p>
             <p><strong>Outcome:</strong> Second place in the Information Management graduation project presentation, honorable mention in the Taoyuan student entrepreneurship competition, and recognition in Hualien local industry innovation activities</p>
-          </a>
+          <a class="project-link" href="https://youtu.be/cLxOIiYe_-Q" target="_blank" rel="noopener">Watch project demo <span aria-hidden="true">↗</span></a>
         </article>
         <article class="card">
           <h3>SAP Product Carbon Footprint System</h3>
@@ -252,6 +285,6 @@
     <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
   </button>
 
-  <script src="aboutme/js/script.js?v=20260518-3"></script>
+  <script src="aboutme/js/script.js?v=20260908-10"></script>
 </body>
 </html>
