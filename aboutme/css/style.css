@@ -686,6 +686,7 @@ p {
 }
 
 .card .project-link {
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -694,8 +695,54 @@ p {
   color: var(--teal);
   font-size: 0.9rem;
   font-weight: 700;
-  text-decoration: underline;
-  text-underline-offset: 4px;
+  text-decoration: none;
+}
+
+.project-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 8px 16px;
+  margin-bottom: 8px;
+}
+
+.project-header h3 {
+  flex: 1 1 220px;
+  margin: 0;
+}
+
+.project-header .project-link {
+  flex: 0 0 auto;
+  margin: 0 0 0 auto;
+  min-height: 28px;
+}
+
+.project-header .project-link::after {
+  bottom: 0;
+}
+
+.project-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 6px;
+  height: 2px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.3s ease;
+}
+
+.project-link:hover::after,
+.project-link:focus-visible::after {
+  transform: scaleX(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-link::after {
+    transition: none;
+  }
 }
 
 a:focus-visible,
@@ -947,6 +994,7 @@ footer {
   .topbar {
     justify-content: flex-end;
     font-size: 0.86rem;
+    padding: 6px 18px;
   }
 
   .nav-toggle {
