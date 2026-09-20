@@ -28,10 +28,10 @@ document.addEventListener("DOMContentLoaded", () => {
   if (timeline) {
     const hover = window.matchMedia("(hover: hover)");
     timeline.querySelectorAll("details").forEach((entry) => {
-      let openedByHover = false;
       let expanded = entry.open;
       let animation;
       let leaveTimer;
+      let lastPointerType = "";
       const summary = entry.querySelector("summary");
       const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
       const setExpanded = (next) => {
@@ -57,28 +57,35 @@ document.addEventListener("DOMContentLoaded", () => {
       };
       entry.addEventListener("pointerenter", () => {
         clearTimeout(leaveTimer);
-        if (hover.matches && !expanded) {
-          openedByHover = true;
+        if (hover.matches) {
           setExpanded(true);
         }
       });
       entry.addEventListener("pointerleave", () => {
-        if (openedByHover && !entry.contains(document.activeElement)) {
+        if (hover.matches) {
           leaveTimer = setTimeout(() => {
             setExpanded(false);
-            openedByHover = false;
-          }, 160);
+          }, 120);
         }
+      });
+      summary.addEventListener("pointerdown", (event) => {
+        lastPointerType = event.pointerType;
       });
       summary.addEventListener("click", (event) => {
         event.preventDefault();
-        openedByHover = false;
+        // A mouse click on an already-hovered card should not reverse the
+        // hover interaction. Touch and keyboard activation remain toggles.
+        if (hover.matches && lastPointerType === "mouse") {
+          setExpanded(true);
+          lastPointerType = "";
+          return;
+        }
+        lastPointerType = "";
         setExpanded(!expanded);
       });
       entry.addEventListener("focusout", (event) => {
-        if (openedByHover && !entry.contains(event.relatedTarget) && !entry.matches(":hover")) {
+        if (!entry.contains(event.relatedTarget) && !entry.matches(":hover")) {
           setExpanded(false);
-          openedByHover = false;
         }
       });
       window.addEventListener("resize", () => {
