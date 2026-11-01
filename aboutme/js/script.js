@@ -5,6 +5,18 @@ document.addEventListener("DOMContentLoaded", () => {
   const backToTop = document.querySelector(".back-to-top");
   const topbar = document.querySelector(".topbar");
   const navToggle = document.querySelector(".nav-toggle");
+  const scrollCue = document.querySelector(".scroll-cue");
+
+  if (scrollCue) {
+    const summary = document.getElementById("summary");
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    scrollCue.addEventListener("click", () => {
+      summary?.scrollIntoView({
+        behavior: reducedMotion.matches ? "auto" : "smooth",
+        block: "start",
+      });
+    });
+  }
 
   const portrait = document.querySelector("button.profile-photo");
   if (portrait) {
