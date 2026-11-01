@@ -394,6 +394,8 @@ a {
 .location-text {
   display: inline-flex;
   align-items: center;
+  align-self: center;
+  min-height: 46px;
   gap: 8px;
   opacity: 0;
   transform: translateY(8px);
@@ -609,80 +611,22 @@ p {
   border-top: 4px solid var(--teal);
 }
 
-.email-contact {
-  position: relative;
-}
-
-.email-panel {
+.sr-only {
   position: absolute;
-  z-index: 12;
-  top: calc(100% + 8px);
-  left: 0;
-  width: max-content;
-  max-width: calc(100vw - 36px);
-  padding: 6px 12px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--surface);
-  color: var(--ink);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
-  font-family: inherit;
-  font-size: 0.92rem;
-  line-height: 1.65;
-  text-align: center;
-}
-
-.email-address {
-  user-select: all;
-  overflow-wrap: anywhere;
-}
-
-.email-panel::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: -9px;
-  height: 9px;
-}
-
-.copy-email {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  min-height: 44px;
-  padding: 8px 10px;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
   border: 0;
-  border-radius: 6px;
-  background: transparent;
-  color: var(--ink);
-  font: inherit;
-  line-height: inherit;
-  cursor: pointer;
-  text-decoration: none;
 }
 
-.copy-email:hover,
-.copy-email:focus-visible {
-  color: var(--teal);
-}
-
-.email-status:empty {
-  display: none;
-}
-
-@media (hover: none) {
-  .contact {
-    padding-bottom: 76px;
-    align-items: flex-start;
-  }
-}
-
-.email-status {
-  margin: 0 0 6px;
-  font-size: 0.84rem;
-  color: var(--muted);
+.icon-btn.email.copied {
+  background: #b8a0f5;
+  color: #101018;
+  box-shadow: 0 6px 20px rgba(184, 160, 245, 0.28);
 }
 
 .card .project-link {

@@ -103,114 +103,47 @@ document.addEventListener("DOMContentLoaded", () => {
     reveal.observe(timeline);
   }
 
-  const emailContact = document.querySelector(".email-contact");
-  if (emailContact) {
-    const toggle = emailContact.querySelector(".email");
-    const panel = emailContact.querySelector(".email-panel");
-    const copy = emailContact.querySelector(".copy-email");
-    const address = emailContact.querySelector(".email-address");
-    const status = emailContact.querySelector(".email-status");
+  const emailButton = document.querySelector(".icon-btn.email");
+  if (emailButton) {
+    const email = "rzworkplace@gmail.com";
+    const status = document.querySelector(".email-copy-status");
     const isChinese = document.documentElement.lang.startsWith("zh");
-    let closeTimer;
-    let panelAnimation;
-    const panelMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const touchLayout = window.matchMedia("(hover: none)");
-    const positionPanel = () => {
-      const centeredLeft = (toggle.offsetWidth - panel.offsetWidth) / 2;
-      panel.style.left = centeredLeft + "px";
-      const bounds = panel.getBoundingClientRect();
-      const shift = Math.max(18 - bounds.left, Math.min(0, window.innerWidth - 18 - bounds.right));
-      panel.style.left = centeredLeft + shift + "px";
-    };
-    const closeEmail = (restoreFocus = false) => {
-      clearTimeout(closeTimer);
-      if (touchLayout.matches) {
+    let resetTimer;
+
+    const copyEmail = async () => {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(email);
         return;
       }
-      const opacity = getComputedStyle(panel).opacity;
-      panelAnimation?.cancel();
-      if (!panel.hidden && !panelMotion.matches) {
-        panelAnimation = panel.animate(
-          [{ opacity }, { opacity: 0 }],
-          { duration: 180, easing: "ease-out" }
-        );
-        panelAnimation.onfinish = () => {
-          panel.hidden = true;
-          panelAnimation = null;
-        };
-      } else {
-        panel.hidden = true;
-      }
-      if (restoreFocus) {
-        toggle.focus();
+      const input = document.createElement("textarea");
+      input.value = email;
+      input.setAttribute("readonly", "");
+      input.style.position = "fixed";
+      input.style.opacity = "0";
+      document.body.append(input);
+      input.select();
+      const copied = document.execCommand("copy");
+      input.remove();
+      if (!copied) {
+        throw new Error("Clipboard copy failed");
       }
     };
-    const showEmail = () => {
-      clearTimeout(closeTimer);
-      const wasHidden = panel.hidden;
-      const opacity = wasHidden ? 0 : getComputedStyle(panel).opacity;
-      const wasAnimating = Boolean(panelAnimation);
-      panelAnimation?.cancel();
-      panel.hidden = false;
-      positionPanel();
-      if ((wasHidden || wasAnimating) && !panelMotion.matches) {
-        panelAnimation = panel.animate(
-          [{ opacity }, { opacity: 1 }],
-          { duration: 220, easing: "ease-out" }
-        );
-        panelAnimation.onfinish = () => { panelAnimation = null; };
-      }
-    };
-    emailContact.addEventListener("pointerenter", showEmail);
-    emailContact.addEventListener("focusin", showEmail);
-    emailContact.addEventListener("pointerleave", () => {
-      closeTimer = setTimeout(() => {
-        if (!emailContact.contains(document.activeElement)) {
-          closeEmail();
-        }
-      }, 180);
-    });
-    copy.addEventListener("click", async () => {
+
+    emailButton.addEventListener("click", async () => {
       try {
-        await navigator.clipboard.writeText(address.textContent.trim());
-        status.textContent = isChinese ? "已複製 ✓" : "Copied ✓";
+        await copyEmail();
+        status.textContent = isChinese ? "已複製電子郵件地址。" : "Email address copied.";
+        emailButton.classList.add("copied");
+        emailButton.setAttribute("aria-label", isChinese ? "電子郵件地址已複製" : "Email address copied");
       } catch {
-        const range = document.createRange();
-        range.selectNodeContents(address);
-        const selection = window.getSelection();
-        selection.removeAllRanges();
-        selection.addRange(range);
-        status.textContent = isChinese
-          ? "無法自動複製，請複製已選取的信箱文字。"
-          : "Please copy the selected email address manually.";
+        status.textContent = isChinese ? "無法複製電子郵件地址。" : "Unable to copy email address.";
       }
+      clearTimeout(resetTimer);
+      resetTimer = setTimeout(() => {
+        emailButton.classList.remove("copied");
+        emailButton.setAttribute("aria-label", isChinese ? `複製信箱 ${email}` : `Copy email address ${email}`);
+      }, 1600);
     });
-    document.addEventListener("pointerdown", (event) => {
-      if (!panel.hidden && !emailContact.contains(event.target)) {
-        closeEmail(panel.contains(document.activeElement));
-      }
-    });
-    emailContact.addEventListener("keydown", (event) => {
-      if (event.key === "Escape" && !panel.hidden) {
-        event.preventDefault();
-        closeEmail(true);
-      }
-    });
-    emailContact.addEventListener("focusout", (event) => {
-      if (!emailContact.contains(event.relatedTarget)) {
-        closeEmail();
-      }
-    });
-    const syncEmail = () => {
-      if (touchLayout.matches) {
-        showEmail();
-      } else if (!panel.hidden) {
-        positionPanel();
-      }
-    };
-    touchLayout.addEventListener("change", syncEmail);
-    window.addEventListener("resize", syncEmail);
-    syncEmail();
   }
 
   if (locationText) {
