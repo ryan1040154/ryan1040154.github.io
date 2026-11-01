@@ -974,6 +974,17 @@ footer {
     padding: 20px 18px 56px;
   }
 
+  /* iOS browser chrome overlays the page, so reserve its visual height. */
+  @supports (-webkit-touch-callout: none) {
+    .hero {
+      min-height: calc(100dvh + 6rem);
+    }
+
+    .scroll-cue {
+      bottom: max(calc(6rem + env(safe-area-inset-bottom)), 6.75rem);
+    }
+  }
+
   .topbar {
     justify-content: flex-end;
     font-size: 0.86rem;
