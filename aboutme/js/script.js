@@ -1,4 +1,116 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const entrance = document.querySelector(".site-entrance");
+  if (entrance) {
+    const entranceCanvas = entrance.querySelector(".entrance-network");
+    const reducedEntranceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const entranceKey = "ryan-portfolio-entrance-seen";
+    let entranceFrame = null;
+
+    const hasEntered = (() => {
+      try {
+        return window.sessionStorage.getItem(entranceKey) === "true";
+      } catch {
+        return false;
+      }
+    })();
+
+    const hideEntrance = () => {
+      cancelAnimationFrame(entranceFrame);
+      entrance.classList.add("is-hidden");
+    };
+
+    if (hasEntered) {
+      hideEntrance();
+    } else {
+      entrance.focus({ preventScroll: true });
+      if (entranceCanvas && !reducedEntranceMotion.matches) {
+        const context = entranceCanvas.getContext("2d");
+        const nodes = Array.from({ length: 42 }, () => ({
+          x: Math.random(),
+          y: Math.random(),
+          z: Math.random() * 0.75 + 0.25,
+          phase: Math.random() * Math.PI * 2,
+        }));
+        let width = 0;
+        let height = 0;
+
+        const resizeEntrance = () => {
+          width = entranceCanvas.offsetWidth;
+          height = entranceCanvas.offsetHeight;
+          const dpr = Math.min(window.devicePixelRatio || 1, 2);
+          entranceCanvas.width = Math.round(width * dpr);
+          entranceCanvas.height = Math.round(height * dpr);
+          context.setTransform(dpr, 0, 0, dpr, 0, 0);
+        };
+
+        const drawEntrance = () => {
+          context.clearRect(0, 0, width, height);
+          const points = nodes.map((node) => {
+            return {
+              x: node.x * width,
+              y: node.y * height,
+              z: node.z,
+            };
+          });
+          for (let index = 0; index < points.length; index += 1) {
+            const point = points[index];
+            for (let other = index + 1; other < points.length; other += 1) {
+              const neighbor = points[other];
+              const distance = Math.hypot(point.x - neighbor.x, point.y - neighbor.y);
+              if (distance > Math.min(width, height) * 0.23) continue;
+              const alpha = (1 - distance / (Math.min(width, height) * 0.23)) * 0.32;
+              context.strokeStyle = `rgba(164, 155, 237, ${alpha})`;
+              context.lineWidth = Math.min(point.z, neighbor.z);
+              context.beginPath();
+              context.moveTo(point.x, point.y);
+              context.lineTo(neighbor.x, neighbor.y);
+              context.stroke();
+            }
+          }
+          points.forEach((point) => {
+            context.fillStyle = "rgba(139, 213, 245, 0.38)";
+            context.beginPath();
+            context.arc(point.x, point.y, 1.2 * point.z, 0, Math.PI * 2);
+            context.fill();
+          });
+        };
+
+        resizeEntrance();
+        window.addEventListener("resize", () => {
+          resizeEntrance();
+          drawEntrance();
+        }, { passive: true });
+        drawEntrance();
+      }
+
+      const enterPortfolio = () => {
+        if (entrance.classList.contains("is-entering")) return;
+        entrance.classList.add("is-entering");
+        entrance.setAttribute("aria-busy", "true");
+        try {
+          window.sessionStorage.setItem(entranceKey, "true");
+        } catch {
+          // Private browsing can block storage; the animation still works.
+        }
+        window.setTimeout(hideEntrance, reducedEntranceMotion.matches ? 80 : 1680);
+      };
+
+      entrance.addEventListener("pointerdown", (event) => {
+        if (entrance.classList.contains("is-entering")) return;
+        const bounds = entrance.getBoundingClientRect();
+        entrance.style.setProperty("--entrance-x", `${event.clientX - bounds.left}px`);
+        entrance.style.setProperty("--entrance-y", `${event.clientY - bounds.top}px`);
+      });
+      entrance.addEventListener("click", enterPortfolio);
+      entrance.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          enterPortfolio();
+        }
+      });
+    }
+  }
+
   const typewriter = document.getElementById("typewriter");
   const locationText = document.querySelector(".location-text");
   const canvas = document.getElementById("network-bg");
