@@ -1,4 +1,53 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const calmMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
+  let smoothScroll = null;
+  const syncSmoothScroll = () => {
+    smoothScroll?.destroy();
+    smoothScroll = null;
+    if (calmMotion.matches || !finePointer.matches || typeof window.Lenis !== "function") return;
+    smoothScroll = new window.Lenis({
+      autoRaf: true,
+      lerp: 0.085,
+      smoothWheel: true,
+      syncTouch: false,
+      anchors: true,
+      allowNestedScroll: true,
+    });
+    syncScrollLock();
+  };
+  const syncScrollLock = () => {
+    const blocked = document.body.classList.contains("nav-open") ||
+      document.querySelector(".site-entrance:not(.is-hidden)");
+    if (blocked) smoothScroll?.stop();
+    else smoothScroll?.start();
+  };
+  new MutationObserver(syncScrollLock).observe(document.body, {
+    attributes: true, subtree: true, attributeFilter: ["class"],
+  });
+  calmMotion.addEventListener("change", syncSmoothScroll);
+  finePointer.addEventListener("change", syncSmoothScroll);
+  syncSmoothScroll();
+
+  if (!calmMotion.matches && "IntersectionObserver" in window) {
+    const sections = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.remove("section-waiting");
+        sections.unobserve(entry.target);
+      });
+    }, { threshold: 0.06 });
+    document.querySelectorAll("main > .section").forEach((section) => {
+      section.classList.add("section-waiting");
+      sections.observe(section);
+    });
+    calmMotion.addEventListener("change", () => {
+      if (calmMotion.matches) {
+        sections.disconnect();
+        document.querySelectorAll(".section-waiting").forEach((section) => section.classList.remove("section-waiting"));
+      }
+    });
+  }
   const entrance = document.querySelector(".site-entrance");
   if (entrance) {
     const entranceCanvas = entrance.querySelector(".entrance-network");
@@ -86,6 +135,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const enterPortfolio = () => {
         if (entrance.classList.contains("is-entering")) return;
         entrance.classList.add("is-entering");
+        document.body.classList.add("entrance-arriving");
+        window.setTimeout(() => document.body.classList.remove("entrance-arriving"), 1850);
         entrance.setAttribute("aria-busy", "true");
         try {
           window.sessionStorage.setItem(entranceKey, "true");
@@ -123,6 +174,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const summary = document.getElementById("summary");
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     scrollCue.addEventListener("click", () => {
+      if (smoothScroll && summary) {
+        smoothScroll.scrollTo(summary);
+        return;
+      }
       summary?.scrollIntoView({
         behavior: reducedMotion.matches ? "auto" : "smooth",
         block: "start",
@@ -304,6 +359,10 @@ document.addEventListener("DOMContentLoaded", () => {
     toggleBackToTop();
 
     backToTop.addEventListener("click", () => {
+      if (smoothScroll) {
+        smoothScroll.scrollTo(0);
+        return;
+      }
       window.scrollTo({
         top: 0,
         behavior: "smooth",
