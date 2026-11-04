@@ -618,7 +618,7 @@ a {
 }
 
 .profile-photo .portrait-lifestyle {
-  object-position: center 65%;
+  object-position: center;
   opacity: 0;
 }
 
