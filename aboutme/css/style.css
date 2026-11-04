@@ -1006,6 +1006,13 @@ p {
   box-shadow: 0 6px 20px rgba(184, 160, 245, 0.28);
 }
 
+.card mark {
+  padding: 0;
+  background: transparent;
+  color: #cfc0eb;
+  font-weight: 600;
+}
+
 .card .project-link {
   position: relative;
   display: inline-flex;
