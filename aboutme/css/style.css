@@ -622,8 +622,13 @@ a {
   opacity: 0;
 }
 
-.profile-photo[aria-pressed="true"] .portrait-lifestyle {
+.profile-photo[data-photo="new"] .portrait-lifestyle:not(.portrait-previous),
+.profile-photo[data-photo="previous"] .portrait-previous {
   opacity: 1;
+}
+
+.profile-photo .portrait-previous {
+  object-position: center 65%;
 }
 
 @media (prefers-reduced-motion: reduce) {

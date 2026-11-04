@@ -187,18 +187,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const portrait = document.querySelector("button.profile-photo");
   if (portrait) {
-    const lifestyle = portrait.querySelector(".portrait-lifestyle");
+    const photos = ["original", "new", "original", "previous"];
+    const images = [portrait.querySelector(".portrait-original"), portrait.querySelector(".portrait-lifestyle:not(.portrait-previous)"), portrait.querySelector(".portrait-original"), portrait.querySelector(".portrait-previous")];
     const chinese = document.documentElement.lang.startsWith("zh");
+    let currentPhoto = 0;
+    let loadingPhoto = false;
     portrait.addEventListener("click", async () => {
+      if (loadingPhoto) return;
+      loadingPhoto = true;
       try {
-        await lifestyle.decode();
-        const showLifestyle = portrait.getAttribute("aria-pressed") !== "true";
-        portrait.setAttribute("aria-pressed", String(showLifestyle));
+        const nextPhoto = (currentPhoto + 1) % photos.length;
+        if (!images[nextPhoto]) throw new Error("Photo unavailable");
+        await images[nextPhoto].decode();
+        currentPhoto = nextPhoto;
+        portrait.dataset.photo = photos[currentPhoto];
+        const showingLifestyle = photos[currentPhoto] !== "original";
+        portrait.setAttribute("aria-pressed", String(showingLifestyle));
         portrait.setAttribute("aria-label", chinese
-          ? (showLifestyle ? "切換正式照" : "切換生活照")
-          : (showLifestyle ? "Show professional photo" : "Show lifestyle photo"));
+          ? (showingLifestyle ? "切換正式照" : "切換生活照")
+          : (showingLifestyle ? "Show professional photo" : "Show lifestyle photo"));
       } catch {
         portrait.setAttribute("aria-label", chinese ? "生活照載入失敗，點擊重試" : "Photo unavailable, click to retry");
+      } finally {
+        loadingPhoto = false;
       }
     });
   }
