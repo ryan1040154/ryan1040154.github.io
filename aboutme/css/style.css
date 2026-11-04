@@ -581,6 +581,8 @@ a {
 
 .hero-copy {
   min-width: 0;
+  padding-inline-start: clamp(24px, 3.8vw, 62px);
+  border-inline-start: 1px solid #c6b6e047;
 }
 
 .hero-copy .contact {
@@ -599,10 +601,10 @@ a {
   aspect-ratio: 1;
   justify-self: center;
   border-radius: 50%;
-  border: 4px solid rgba(184, 160, 245, 0.35);
+  border: 1px solid #d0c5e8a6;
   object-fit: cover;
   object-position: top center;
-  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.28);
+  box-shadow: 0 0 0 7px #15131f, 0 0 0 8px #bca9d445, 0 20px 54px #08071075;
 }
 
 .profile-photo img {
@@ -644,7 +646,11 @@ a {
 }
 
 .hero .eyebrow {
-  margin-top: 0;
+  margin: 0 0 18px;
+  color: #cdc2dc;
+  font-size: clamp(0.64rem, 1vw, 0.76rem);
+  font-weight: 500;
+  letter-spacing: 0.14em;
 }
 
 .hero h1 {
@@ -677,9 +683,11 @@ a {
   gap: 0.2em 0.65em;
   min-height: 0;
   margin: 0;
-  font-size: clamp(1.75rem, 3vw, 2.75rem);
-  font-weight: 600;
-  line-height: 1.4;
+  font-family: Georgia, "Times New Roman", "Noto Serif TC", "PMingLiU", serif;
+  font-size: clamp(1.75rem, 3.5vw, 3.6rem);
+  font-weight: 400;
+  line-height: 1.25;
+  letter-spacing: -0.035em;
   color: #fff;
 }
 
@@ -687,11 +695,17 @@ a {
   white-space: nowrap;
 }
 
+.hero-name > span:last-child {
+  color: #dfd6e9;
+  letter-spacing: 0.055em;
+}
+
 .quote {
   max-width: 660px;
   margin: 18px 0 0;
-  color: rgba(255, 255, 255, 0.84);
-  font-size: 1.18rem;
+  color: #c6c1d2;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1rem, 1.45vw, 1.22rem);
   font-style: italic;
 }
 
@@ -1396,6 +1410,25 @@ footer {
 
   .profile-photo {
     width: 180px;
+  }
+
+  .hero-copy {
+    padding-inline-start: 0;
+    border-inline-start: 0;
+  }
+
+  .hero .eyebrow::before {
+    content: "";
+    display: block;
+    width: 42px;
+    height: 1px;
+    margin: 0 auto 14px;
+    background: linear-gradient(90deg, transparent, #d6c9e8, transparent);
+  }
+
+  .hero h1.hero-name {
+    font-size: clamp(1.45rem, 6.5vw, 2.15rem);
+    gap: 0.2em 0.48em;
   }
 
   .hero h1.hero-name,
