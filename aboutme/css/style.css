@@ -753,7 +753,9 @@ a {
 }
 
 .icon-btn.linkedin:hover,
-.icon-btn.linkedin:focus-visible {
+.icon-btn.linkedin:focus-visible,
+.icon-btn.github:hover,
+.icon-btn.github:focus-visible {
   background: #8bd5f5;
   box-shadow: 0 6px 20px rgba(139, 213, 245, 0.28);
 }
