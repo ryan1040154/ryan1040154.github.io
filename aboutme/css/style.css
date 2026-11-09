@@ -734,7 +734,7 @@ a {
   border-radius: 50%;
   background: #242235;
   color: var(--teal);
-  box-shadow: inset 0 0 0 1px var(--line);
+  box-shadow: inset 0 0 0 1px var(--line), 0 6px 20px rgba(255, 255, 255, 0);
   font-size: 1.15rem;
   text-decoration: none;
   transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
@@ -759,20 +759,20 @@ a {
 .icon-btn.email:hover,
 .icon-btn.email:focus-visible {
   background: #b8a0f5;
-  box-shadow: 0 6px 20px rgba(184, 160, 245, 0.28);
+  box-shadow: inset 0 0 0 1px transparent, 0 6px 20px rgba(184, 160, 245, 0.28);
 }
 
 .icon-btn.linkedin:hover,
 .icon-btn.linkedin:focus-visible {
   background: #8bd5f5;
-  box-shadow: 0 6px 20px rgba(139, 213, 245, 0.28);
+  box-shadow: inset 0 0 0 1px transparent, 0 6px 20px rgba(139, 213, 245, 0.28);
 }
 
 .icon-btn.github:hover,
 .icon-btn.github:focus-visible {
   background: #f5f5f5;
   color: #101018;
-  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.2);
+  box-shadow: inset 0 0 0 1px transparent, 0 6px 20px rgba(255, 255, 255, 0.2);
 }
 
 .icon-btn:active i {
@@ -1026,7 +1026,7 @@ p {
 .icon-btn.email.copied {
   background: #b8a0f5;
   color: #101018;
-  box-shadow: 0 6px 20px rgba(184, 160, 245, 0.28);
+  box-shadow: inset 0 0 0 1px transparent, 0 6px 20px rgba(184, 160, 245, 0.28);
 }
 
 .card mark {
