@@ -1071,12 +1071,19 @@ p {
 }
 
 .card-links .project-link,
-.education-link h3 {
+.education-name {
   background-image: linear-gradient(104deg, #e6cc77a6, #f3df9dc2 88%, #f3df9d70);
   background-repeat: no-repeat;
   background-position: 0 68%;
   background-size: 0 0.65em;
   transition: background-size 0.55s cubic-bezier(.22, 1, .36, 1);
+}
+
+.education-name {
+  /* Paint each wrapped line of the school name independently. */
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  background-position: 0 90%;
 }
 
 .card-links .project-link {
@@ -1086,13 +1093,13 @@ p {
 }
 
 .card-links .project-link:is(.link-highlighted, :hover, :focus-visible),
-.education-link:is(.link-highlighted, :hover, :focus-visible) h3 {
+.education-link:is(.link-highlighted, :hover, :focus-visible) .education-name {
   background-size: 100% 0.65em;
 }
 
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
   .card-links .project-link:hover,
-  .education-link:hover h3 {
+  .education-link:hover .education-name {
     animation: marker-sweep 0.55s cubic-bezier(.22, 1, .36, 1);
   }
 }
@@ -1104,7 +1111,7 @@ p {
 
 @media (prefers-reduced-motion: reduce) {
   .card-links .project-link,
-  .education-link h3 {
+  .education-name {
     transition: none;
   }
 }
