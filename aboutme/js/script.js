@@ -1,5 +1,18 @@
 document.addEventListener("DOMContentLoaded", () => {
   const calmMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  if ("IntersectionObserver" in window) {
+    const linkObserver = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        entry.target.classList.add("link-highlighted");
+        linkObserver.unobserve(entry.target);
+      }
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll(".card-links .project-link, .education-link").forEach((link) => {
+      linkObserver.observe(link);
+    });
+  }
   const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
   let smoothScroll = null;
   const syncSmoothScroll = () => {
