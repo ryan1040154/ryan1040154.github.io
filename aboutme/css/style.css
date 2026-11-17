@@ -1090,6 +1090,18 @@ p {
   background-size: 100% 0.65em;
 }
 
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .card-links .project-link:hover,
+  .education-link:hover h3 {
+    animation: marker-sweep 0.55s cubic-bezier(.22, 1, .36, 1);
+  }
+}
+
+@keyframes marker-sweep {
+  from { background-size: 0 0.65em; }
+  to { background-size: 100% 0.65em; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .card-links .project-link,
   .education-link h3 {
@@ -1127,6 +1139,13 @@ button:focus-visible {
 
 .leadership-list li {
   padding: 18px 20px;
+}
+
+.leadership-role {
+  display: block;
+  margin-top: 4px;
+  color: var(--teal);
+  font-weight: 600;
 }
 
 .experience-timeline {

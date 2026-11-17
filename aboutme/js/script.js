@@ -1,5 +1,31 @@
 document.addEventListener("DOMContentLoaded", () => {
   const calmMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const readingSections = [...document.querySelectorAll("main > .section[id]")];
+  const languageLink = document.querySelector(".language-switch a");
+  const pageUrl = new URL(window.location.href);
+  const readingSection = readingSections.find((section) => section.id === pageUrl.searchParams.get("reading"));
+  const progress = Number(pageUrl.searchParams.get("progress"));
+  const readingOffset = () => document.querySelector(".topbar")?.getBoundingClientRect().height ?? 0;
+
+  if (readingSection && Number.isFinite(progress)) {
+    requestAnimationFrame(() => {
+      // Use layout coordinates because sections can still be animating into view.
+      const top = readingSection.offsetTop + readingSection.offsetHeight * Math.max(0, Math.min(1, progress));
+      window.scrollTo({ top: top - readingOffset(), behavior: "instant" });
+    });
+  }
+
+  languageLink?.addEventListener("click", (event) => {
+    if (event.defaultPrevented || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+    const readingLine = window.scrollY + readingOffset();
+    const section = readingSections.findLast((item) => item.offsetTop <= readingLine);
+    if (!section) return;
+    const destination = new URL(languageLink.href);
+    destination.searchParams.set("reading", section.id);
+    destination.searchParams.set("progress", ((readingLine - section.offsetTop) / section.offsetHeight).toFixed(4));
+    event.preventDefault();
+    window.location.assign(destination.href);
+  });
   if ("IntersectionObserver" in window) {
     const linkObserver = new IntersectionObserver((entries) => {
       for (const entry of entries) {
@@ -81,7 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
       entrance.classList.add("is-hidden");
     };
 
-    if (hasEntered) {
+    if (hasEntered || readingSection) {
       hideEntrance();
     } else {
       entrance.focus({ preventScroll: true });
