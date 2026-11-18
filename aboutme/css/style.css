@@ -1191,6 +1191,7 @@ button:focus-visible {
   position: absolute;
   left: -30px;
   top: 26px;
+  z-index: 1;
   width: 14px;
   height: 14px;
   border: 1px solid rgba(139, 213, 245, 0.6);
@@ -1204,9 +1205,9 @@ button:focus-visible {
 .experience-entry::after {
   content: "";
   position: absolute;
-  left: -16px;
-  top: 33px;
-  width: 15px;
+  left: -23px;
+  top: 32.5px;
+  width: 23px;
   height: 1px;
   background: linear-gradient(to right, rgba(139, 213, 245, 0.55), var(--line));
   transition: opacity 0.4s ease;
@@ -1234,6 +1235,12 @@ button:focus-visible {
   padding: 20px 24px;
   cursor: pointer;
   list-style: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.experience-period a[x-apple-data-detectors] {
+  color: inherit !important;
+  text-decoration: none !important;
 }
 
 .experience-entry summary::-webkit-details-marker {
@@ -1567,7 +1574,7 @@ main :is(.skills li, .timeline article, .card, .achievement-grid article, .leade
 }
 .card.featured { border-top: 2px solid var(--teal); }
 .card mark { color: #385d4a; background: #e6ecdf; }
-.experience-timeline::before { left: 7px; width: 1px; border: 0; background: #99a89a; }
+.experience-timeline::before { left: 7.5px; width: 1px; border: 0; background: #99a89a; }
 .experience-entry::after { background: var(--teal); }
 .experience-entry::before { border-color: var(--teal); }
 footer { background: #e7e8df; border-top: 1px solid var(--line); }
