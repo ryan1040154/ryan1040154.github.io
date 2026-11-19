@@ -2,14 +2,15 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8" />
+  <script src="../js/entrance-init.js?v=20261119-2"></script>
   <meta name="format-detection" content="telephone=no, date=no, address=no, email=no" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="莊宸安 Ryan Chuang 個人履歷網站，聚焦企業系統、LLM 應用、SAP ERP、AI Security 與數位轉型。" />
-  <title>莊宸安 Ryan Chuang | Portfolio</title>
+  <meta name="description" content="莊宸安 Chen-An Chuang 個人履歷網站，聚焦企業系統、LLM 應用、SAP ERP、AI Security 與數位轉型。" />
+  <title>莊宸安 Chen-An Chuang | Portfolio</title>
   <link rel="preconnect" href="https://cdnjs.cloudflare.com">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="https://unpkg.com/lenis@1.3.27/dist/lenis.css">
-  <link rel="stylesheet" href="../css/style.css?v=20261119-8">
+  <link rel="stylesheet" href="../css/style.css?v=20261119-11">
   <link rel="icon" type="image/png" href="../images/favicon.png">
   <link rel="apple-touch-icon" href="../images/favicon.png">
 </head>
@@ -63,7 +64,7 @@
               <i class="fa-solid fa-envelope" aria-hidden="true"></i>
           </button>
           <span class="sr-only email-copy-status" role="status" aria-live="polite"></span>
-          <a href="https://www.linkedin.com/in/ryan-chuang-business" target="_blank" rel="noopener" class="icon-btn linkedin" aria-label="Ryan Chuang on LinkedIn">
+          <a href="https://www.linkedin.com/in/ryan-chuang-business" target="_blank" rel="noopener" class="icon-btn linkedin" aria-label="Chen-An Chuang on LinkedIn">
             <i class="fa-brands fa-linkedin"></i>
           </a>
           <a href="https://github.com/ryan1040154" target="_blank" rel="noopener" class="icon-btn github" aria-label="莊宸安的 GitHub 個人頁">
@@ -209,7 +210,7 @@
       <p class="section-kicker">Selected Projects</p>
       <h2>精選專案</h2>
       <div class="projects-grid">
-        <article class="card featured">
+        <article data-reading-key="patent" class="card featured">
           <h3>機器人感知融合技術專利分析與布局</h3>
           <p>團隊檢索機器人視覺與觸覺融合技術，分析 <mark>1,175 個專利家族</mark>，比對五類觸覺感測技術在抓取、安全與照護上的布局。</p>
           <p>針對金屬中心（MIRDC）的題目，建議優先發展用於照護抓取的光學觸覺感測。</p>
@@ -219,17 +220,18 @@
             <a class="project-link" href="https://naipnews.naipo.com/73824/" target="_blank" rel="noopener">北美智權報報導</a>
           </div>
         </article>
-        <article class="card featured">
+        <article data-reading-key="sap-ai" class="card featured">
           <h3>SAP AI Empowerment 與整合服務現代化</h3>
           <p>升級 Spring Boot 後端，串接 MCP 與 Spring AI，將 SAP 查詢封裝為 <mark>4 項工具</mark>。以 ABAP 自動化測試逐欄比對標準與客製介面，驗證 <mark>7 組介面</mark>。</p>
           <p>完成 Business Partner 主檔異動追蹤 Enhancement，改用 SAP 標準變更紀錄，提高異動擷取完整性。透過共用開發手冊，<mark>新 AI 工具開發效率提升約 70%</mark>。</p>
         </article>
-        <article class="card featured">
+        <article data-reading-key="legal-ai" class="card featured">
           <h3>Taiwan-Land-Legal-AI</h3>
           <p>為地政士開發全地端法規問答系統，透過 MCP 檢索土地法等法規，回答時附上可核對的法條。</p>
-          <p><strong>研究成果：</strong>〈具引用驗證與結構性護欄之 Agentic 法律問答系統：以都市更新法規為例〉獲 2026 中國工業工程學會年會暨學術研討會（CIIE 2026）<mark>最佳論文獎</mark>。</p>
+          <p>研究成果獲 2026 中國工業工程學會年會暨學術研討會（CIIE 2026）<mark>最佳論文獎</mark>。</p>
+          <p class="project-note">論文：〈具引用驗證與結構性護欄之 Agentic 法律問答系統：以都市更新法規為例〉</p>
         </article>
-        <article class="card featured">
+        <article data-reading-key="uav" class="card featured">
           <h3>Aerial Vision 搜救運輸型無人機</h3>
           <p>擔任專題組長，整合 YOLOv5、OpenPose 與 PID 飛行控制，讓無人機能辨識搜救目標並規劃運輸路線。</p>
           <p>獲資管系畢業專題發表<mark>第二名</mark>、桃園青創力學生創業競賽<mark>優選</mark>，以及花蓮青年鏈結地方產業專題競賽<mark>行動獎勵金</mark>。</p>
@@ -238,21 +240,21 @@
             <a class="project-link" href="https://www.bnext.com.tw/article/80704/meet-pacific-intelligence-traffic-startup" target="_blank" rel="noopener">《數位時代》專訪團隊成員</a>
           </div>
         </article>
-        <article class="card">
+        <article data-reading-key="carbon" class="card">
           <h3>SAP 產品碳足跡系統</h3>
           <p>擔任專案經理，負責 SAP IMG 的企業架構、使用者權限與財務設定。</p>
           <p>以 ABAP 和 Python 自動化流程，依客製碳係數計算產品碳足跡。團隊獲<mark>結案競賽第二名</mark>。</p>
         </article>
-        <article class="card">
+        <article data-reading-key="exchange" class="card">
           <h3>VIP Exchange Program</h3>
           <p>代表東華 ERP 學生團隊與韓國仁荷大學進行學術交流。</p>
           <p>以外語討論資料分析如何支援商業決策及系統優化，並將成果整理成專案報告。</p>
         </article>
-        <article class="card">
+        <article data-reading-key="usr" class="card">
           <h3>畢專與 USR 專案</h3>
-          <p>協調第 25 屆資管系畢業專題展的時程、人力與成果發表，並參與花蓮 USR 計畫，將資訊技術應用於地方數位共融。</p>
+          <p>統籌 2024 國立東華大學資訊管理學系畢業專題暨大學社會責任實踐（USR）－洄瀾共好計畫成果發表會，協調活動時程、人力與成果展示。</p>
         </article>
-        <article class="card">
+        <article data-reading-key="prototypes" class="card">
           <h3>網頁與自動化原型</h3>
           <p>為東華駕訓班製作 LINE 自動回覆機器人與 Unity 駕駛模擬器，協助學員準備駕照考試。</p>
           <p>另實作演唱會訂票資料庫原型。</p>
@@ -306,7 +308,7 @@
   </main>
 
   <footer>
-    <p>&copy; 2026 Ryan Chuang. All rights reserved.</p>
+    <p>&copy; 2026 Chen-An Chuang. All rights reserved.</p>
   </footer>
 
   <button class="back-to-top" type="button" aria-label="回到頂部">
@@ -314,6 +316,6 @@
   </button>
 
   <script src="https://unpkg.com/lenis@1.3.27/dist/lenis.min.js"></script>
-  <script src="../js/script.js?v=20261119-3"></script>
+  <script src="../js/script.js?v=20261119-6"></script>
 </body>
 </html>

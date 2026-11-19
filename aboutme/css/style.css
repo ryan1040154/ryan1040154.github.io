@@ -60,6 +60,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--gold); outline-
   --entrance-y: 50%;
 }
 
+.skip-entrance .site-entrance,
 .site-entrance.is-hidden {
   display: none;
 }
@@ -676,6 +677,9 @@ html[lang^="zh"] .language-switch.is-switching::before {
   transform: translateX(0);
 }
 
+html.language-positioning { background: #101018; }
+html.language-positioning body { visibility: hidden; }
+
 body.language-leaving::after,
 body.language-arriving::after {
   content: "";
@@ -696,11 +700,11 @@ body.language-arriving::after {
 
 @keyframes languageShadeIn {
   from { opacity: 0; }
-  to { opacity: .85; }
+  to { opacity: 1; }
 }
 
 @keyframes languageShadeOut {
-  from { opacity: .85; }
+  from { opacity: 1; }
   to { opacity: 0; }
 }
 
@@ -1820,3 +1824,17 @@ main :is(.skills li, .timeline article, .card, .achievement-grid article, .leade
 footer { background: #e7e8df; border-top: 1px solid var(--line); }
 .back-to-top { background: #385342; }
 .back-to-top:hover { background: #283f31; }
+
+/* Supporting projects retain the same reading size with quieter headings. */
+.projects-grid > .card:not(.featured) h3 {
+  font-size: 1.15rem;
+  line-height: 1.5;
+}
+.card .project-note {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+.project-note cite { font-style: normal; }

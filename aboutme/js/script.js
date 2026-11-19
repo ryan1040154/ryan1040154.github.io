@@ -4,9 +4,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const languageLink = document.querySelector(".language-switch a");
   let languageChanging = false;
   const pageUrl = new URL(window.location.href);
-  if (pageUrl.searchParams.has("language-switch")) {
-    document.body.classList.add("language-arriving");
-    window.setTimeout(() => document.body.classList.remove("language-arriving"), 400);
+  const isLanguageArrival = pageUrl.searchParams.has("language-switch");
+  if (isLanguageArrival) {
     pageUrl.searchParams.delete("language-switch");
     window.history.replaceState(null, "", pageUrl.href);
   }
@@ -19,12 +18,45 @@ document.addEventListener("DOMContentLoaded", () => {
   const progress = Number(pageUrl.searchParams.get("progress"));
   const readingOffset = () => document.querySelector(".topbar")?.getBoundingClientRect().height ?? 0;
 
-  if (readingSection && Number.isFinite(progress)) {
-    requestAnimationFrame(() => {
-      // Use layout coordinates because sections can still be animating into view.
-      const top = readingSection.offsetTop + readingSection.offsetHeight * Math.max(0, Math.min(1, progress));
-      window.scrollTo({ top: top - readingOffset(), behavior: "instant" });
-    });
+  // Offset coordinates avoid transient transforms from section reveal animations.
+  const layoutTop = (element) => {
+    let top = 0;
+    for (let node = element; node; node = node.offsetParent) top += node.offsetTop;
+    return top;
+  };
+  const readingCard = readingSection && [...readingSection.querySelectorAll("[data-reading-key]")]
+    .find((card) => card.dataset.readingKey === pageUrl.searchParams.get("card"));
+  const cardProgress = Number(pageUrl.searchParams.get("card-progress"));
+
+  const restoreReadingPosition = () => {
+    if (!readingSection || !Number.isFinite(progress)) return;
+    const target = readingCard || readingSection;
+    const fraction = readingCard && Number.isFinite(cardProgress) ? cardProgress : progress;
+    const top = layoutTop(target) + target.offsetHeight * Math.max(0, Math.min(1, fraction));
+    const destination = Math.max(0, top - readingOffset());
+    if (smoothScroll) smoothScroll.scrollTo(destination, { immediate: true, force: true });
+    else window.scrollTo({ top: destination, behavior: "instant" });
+    // The restored section should already be visible when the veil lifts.
+    readingSection.classList.remove("section-waiting");
+  };
+
+  if (isLanguageArrival) {
+    // Font metrics affect section heights. Position behind an opaque veil,
+    // then reveal on the following frame rather than animating past the hero.
+    const fontsReady = document.fonts?.ready || Promise.resolve();
+    Promise.race([fontsReady, new Promise((resolve) => window.setTimeout(resolve, 1200))])
+      .then(() => requestAnimationFrame(() => {
+        restoreReadingPosition();
+        requestAnimationFrame(() => {
+          if (!calmMotion.matches) {
+            document.body.classList.add("language-arriving");
+            window.setTimeout(() => document.body.classList.remove("language-arriving"), 400);
+          }
+          document.documentElement.classList.remove("language-positioning");
+        });
+      }));
+  } else if (readingSection) {
+    requestAnimationFrame(restoreReadingPosition);
   }
 
   languageLink?.addEventListener("click", (event) => {
@@ -34,6 +66,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const destination = new URL(languageLink.href);
     if (section) {
       destination.searchParams.set("reading", section.id);
+      const cards = [...section.querySelectorAll("[data-reading-key]")];
+      // In a two-column row, keep the first card as the stable reading anchor.
+      const card = cards.filter((item) => layoutTop(item) <= readingLine + 24)
+        .sort((a, b) => layoutTop(b) - layoutTop(a))[0];
+      if (card) {
+        destination.searchParams.set("card", card.dataset.readingKey);
+        destination.searchParams.set("card-progress", ((readingLine - layoutTop(card)) / card.offsetHeight).toFixed(4));
+      }
       destination.searchParams.set("progress", ((readingLine - section.offsetTop) / section.offsetHeight).toFixed(4));
     }
     destination.searchParams.set("language-switch", "1");
@@ -125,7 +165,7 @@ document.addEventListener("DOMContentLoaded", () => {
       entrance.classList.add("is-hidden");
     };
 
-    if (hasEntered || readingSection) {
+    if (hasEntered || readingSection || document.documentElement.classList.contains("skip-entrance")) {
       hideEntrance();
     } else {
       entrance.focus({ preventScroll: true });
