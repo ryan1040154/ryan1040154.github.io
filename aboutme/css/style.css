@@ -1806,6 +1806,14 @@ main :is(.skills li, .timeline article, .card, .achievement-grid article, .leade
 }
 .card.featured { border-top: 2px solid var(--teal); }
 .card mark { color: #385d4a; background: #e6ecdf; }
+.intro-section mark {
+  padding: 0;
+  color: #385d4a;
+  background: #e6ecdf;
+  font-weight: 600;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
 .experience-timeline::before { left: 7.5px; width: 1px; border: 0; background: #99a89a; }
 .experience-entry::after { background: var(--teal); }
 .experience-entry::before { border-color: var(--teal); }
