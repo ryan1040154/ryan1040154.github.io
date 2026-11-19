@@ -2,7 +2,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const calmMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   const readingSections = [...document.querySelectorAll("main > .section[id]")];
   const languageLink = document.querySelector(".language-switch a");
+  let languageChanging = false;
   const pageUrl = new URL(window.location.href);
+  if (pageUrl.searchParams.has("language-switch")) {
+    document.body.classList.add("language-arriving");
+    window.setTimeout(() => document.body.classList.remove("language-arriving"), 400);
+    pageUrl.searchParams.delete("language-switch");
+    window.history.replaceState(null, "", pageUrl.href);
+  }
+  window.addEventListener("pageshow", () => {
+    document.body.classList.remove("language-leaving");
+    document.querySelector(".language-switch")?.classList.remove("is-switching");
+    languageChanging = false;
+  });
   const readingSection = readingSections.find((section) => section.id === pageUrl.searchParams.get("reading"));
   const progress = Number(pageUrl.searchParams.get("progress"));
   const readingOffset = () => document.querySelector(".topbar")?.getBoundingClientRect().height ?? 0;
@@ -19,12 +31,18 @@ document.addEventListener("DOMContentLoaded", () => {
     if (event.defaultPrevented || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
     const readingLine = window.scrollY + readingOffset();
     const section = readingSections.findLast((item) => item.offsetTop <= readingLine);
-    if (!section) return;
     const destination = new URL(languageLink.href);
-    destination.searchParams.set("reading", section.id);
-    destination.searchParams.set("progress", ((readingLine - section.offsetTop) / section.offsetHeight).toFixed(4));
+    if (section) {
+      destination.searchParams.set("reading", section.id);
+      destination.searchParams.set("progress", ((readingLine - section.offsetTop) / section.offsetHeight).toFixed(4));
+    }
+    destination.searchParams.set("language-switch", "1");
     event.preventDefault();
-    window.location.assign(destination.href);
+    if (languageChanging) return;
+    languageChanging = true;
+    document.querySelector(".language-switch")?.classList.add("is-switching");
+    document.body.classList.add("language-leaving");
+    window.setTimeout(() => window.location.assign(destination.href), calmMotion.matches ? 0 : 280);
   });
   if ("IntersectionObserver" in window) {
     const linkObserver = new IntersectionObserver((entries) => {
@@ -433,7 +451,7 @@ document.addEventListener("DOMContentLoaded", () => {
       navToggle.setAttribute("aria-expanded", "false");
       navToggle.setAttribute("aria-label", openLabel);
       if (restoreFocus) {
-        navToggle.focus();
+        navToggle.focus({ preventScroll: true });
       }
     };
 
@@ -446,7 +464,7 @@ document.addEventListener("DOMContentLoaded", () => {
       document.body.classList.add("nav-open");
       navToggle.setAttribute("aria-expanded", "true");
       navToggle.setAttribute("aria-label", closeLabel);
-      navLinks?.querySelector("a")?.focus();
+      navLinks?.querySelector("a")?.focus({ preventScroll: true });
     });
 
     topbar.querySelectorAll(".nav-links a").forEach((link) => {
@@ -474,7 +492,7 @@ document.addEventListener("DOMContentLoaded", () => {
         event.preventDefault();
         closeMenu(true);
       } else if (event.key === "Tab") {
-        const controls = [navToggle, ...topbar.querySelectorAll(".nav-links a")];
+        const controls = [navToggle, ...topbar.querySelectorAll(".nav-links a, .language-switch a")];
         const index = controls.indexOf(document.activeElement);
         if (event.shiftKey && index <= 0) {
           event.preventDefault();
