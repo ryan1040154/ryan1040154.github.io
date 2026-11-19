@@ -1199,9 +1199,8 @@ p {
 
 .card-links .project-link {
   position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
+  display: block;
+  align-content: center;
   min-height: 44px;
   margin: 0;
   color: var(--teal);
@@ -1217,7 +1216,7 @@ p {
   }
 }
 
-.card-links .project-link,
+.project-link-label,
 .education-name {
   background-image: linear-gradient(104deg, #e6cc77a6, #f3df9dc2 88%, #f3df9d70);
   background-repeat: no-repeat;
@@ -1226,8 +1225,9 @@ p {
   transition: background-size 0.55s cubic-bezier(.22, 1, .36, 1);
 }
 
+.project-link-label,
 .education-name {
-  /* Paint each wrapped line of the school name independently. */
+  /* Paint each wrapped line independently. */
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
   background-position: 0 90%;
@@ -1239,13 +1239,13 @@ p {
   text-underline-offset: 0.22em;
 }
 
-.card-links .project-link:is(.link-highlighted, :hover, :focus-visible),
+.card-links .project-link:is(.link-highlighted, :hover, :focus-visible) .project-link-label,
 .education-link:is(.link-highlighted, :hover, :focus-visible) .education-name {
   background-size: 100% 0.65em;
 }
 
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
-  .card-links .project-link:hover,
+  .card-links .project-link:hover .project-link-label,
   .education-link:hover .education-name {
     animation: marker-sweep 0.55s cubic-bezier(.22, 1, .36, 1);
   }
@@ -1257,7 +1257,7 @@ p {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .card-links .project-link,
+  .project-link-label,
   .education-name {
     transition: none;
   }
@@ -1316,14 +1316,14 @@ button:focus-visible {
     padding: 8px 0;
     min-height: 44px;
     max-width: 100%;
-    background-size: 100% .65em;
-    background-position: 0 75%;
     overflow-wrap: anywhere;
   }
 
   .card-links {
     gap: 10px 14px;
   }
+
+  .project-link-label { background-size: 100% .65em; }
 
   .education-name {
     background-size: 100% .65em;
