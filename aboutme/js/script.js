@@ -240,7 +240,15 @@ document.addEventListener("DOMContentLoaded", () => {
         } catch {
           // Private browsing can block storage; the animation still works.
         }
-        window.setTimeout(hideEntrance, reducedEntranceMotion.matches ? 80 : 1680);
+        window.setTimeout(() => {
+          const hadFocus = document.activeElement === entrance;
+          hideEntrance();
+          if (hadFocus) {
+            const heading = document.querySelector(".hero-name");
+            heading?.setAttribute("tabindex", "-1");
+            heading?.focus({ preventScroll: true });
+          }
+        }, reducedEntranceMotion.matches ? 80 : 1680);
       };
 
       entrance.addEventListener("pointerdown", (event) => {
@@ -259,7 +267,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  const typewriter = document.getElementById("typewriter");
   const locationText = document.querySelector(".location-text");
   const canvas = document.getElementById("network-bg");
   const backToTop = document.querySelector(".back-to-top");
@@ -439,25 +446,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 250);
   }
 
-  if (typewriter) {
-    const text = "Ryan Chuang";
-    typewriter.textContent = "";
-    let index = 0;
-
-    const type = () => {
-      if (index < text.length) {
-        typewriter.textContent += text.charAt(index);
-        index += 1;
-        setTimeout(type, 110);
-        return;
-      }
-
-      typewriter.style.borderRight = "none";
-    };
-
-    type();
-  }
-
   if (backToTop) {
     const toggleBackToTop = () => {
       backToTop.classList.toggle("visible", window.scrollY > 520);
@@ -473,7 +461,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       window.scrollTo({
         top: 0,
-        behavior: "smooth",
+        behavior: calmMotion.matches ? "instant" : "smooth",
       });
     });
   }
