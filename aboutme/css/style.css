@@ -1838,3 +1838,6 @@ footer { background: #e7e8df; border-top: 1px solid var(--line); }
   line-height: 1.7;
 }
 .project-note cite { font-style: normal; }
+
+/* The heading receives programmatic focus after the entrance. */
+.hero-name[tabindex="-1"]:focus { outline: none; }

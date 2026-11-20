@@ -4,18 +4,21 @@ document.addEventListener("DOMContentLoaded", () => {
   const languageLink = document.querySelector(".language-switch a");
   let languageChanging = false;
   const pageUrl = new URL(window.location.href);
-  const isLanguageArrival = pageUrl.searchParams.has("language-switch");
-  if (isLanguageArrival) {
-    pageUrl.searchParams.delete("language-switch");
-    window.history.replaceState(null, "", pageUrl.href);
+  const reading = window.portfolioReading || pageUrl.searchParams;
+  const isLanguageArrival = reading.has("language-switch");
+  const readingKeys = ["language-switch", "reading", "progress", "card", "card-progress"];
+  if (readingKeys.some((key) => pageUrl.searchParams.has(key))) {
+    readingKeys.forEach((key) => pageUrl.searchParams.delete(key));
+    if (pageUrl.protocol !== "file:") pageUrl.pathname = pageUrl.pathname.replace(/\/index\.html$/, "/");
+    window.history.replaceState(window.history.state, "", pageUrl.href);
   }
   window.addEventListener("pageshow", () => {
     document.body.classList.remove("language-leaving");
     document.querySelector(".language-switch")?.classList.remove("is-switching");
     languageChanging = false;
   });
-  const readingSection = readingSections.find((section) => section.id === pageUrl.searchParams.get("reading"));
-  const progress = Number(pageUrl.searchParams.get("progress"));
+  const readingSection = readingSections.find((section) => section.id === reading.get("reading"));
+  const progress = Number(reading.get("progress"));
   const readingOffset = () => document.querySelector(".topbar")?.getBoundingClientRect().height ?? 0;
 
   // Offset coordinates avoid transient transforms from section reveal animations.
@@ -25,8 +28,8 @@ document.addEventListener("DOMContentLoaded", () => {
     return top;
   };
   const readingCard = readingSection && [...readingSection.querySelectorAll("[data-reading-key]")]
-    .find((card) => card.dataset.readingKey === pageUrl.searchParams.get("card"));
-  const cardProgress = Number(pageUrl.searchParams.get("card-progress"));
+    .find((card) => card.dataset.readingKey === reading.get("card"));
+  const cardProgress = Number(reading.get("card-progress"));
 
   const restoreReadingPosition = () => {
     if (!readingSection || !Number.isFinite(progress)) return;
@@ -63,22 +66,36 @@ document.addEventListener("DOMContentLoaded", () => {
     if (event.defaultPrevented || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
     const readingLine = window.scrollY + readingOffset();
     const section = readingSections.findLast((item) => item.offsetTop <= readingLine);
+    if (languageChanging) {
+      event.preventDefault();
+      return;
+    }
     const destination = new URL(languageLink.href);
+    const nextReading = new URLSearchParams();
     if (section) {
-      destination.searchParams.set("reading", section.id);
+      nextReading.set("reading", section.id);
       const cards = [...section.querySelectorAll("[data-reading-key]")];
       // In a two-column row, keep the first card as the stable reading anchor.
       const card = cards.filter((item) => layoutTop(item) <= readingLine + 24)
         .sort((a, b) => layoutTop(b) - layoutTop(a))[0];
       if (card) {
-        destination.searchParams.set("card", card.dataset.readingKey);
-        destination.searchParams.set("card-progress", ((readingLine - layoutTop(card)) / card.offsetHeight).toFixed(4));
+        nextReading.set("card", card.dataset.readingKey);
+        nextReading.set("card-progress", ((readingLine - layoutTop(card)) / card.offsetHeight).toFixed(4));
       }
-      destination.searchParams.set("progress", ((readingLine - section.offsetTop) / section.offsetHeight).toFixed(4));
+      nextReading.set("progress", ((readingLine - section.offsetTop) / section.offsetHeight).toFixed(4));
     }
-    destination.searchParams.set("language-switch", "1");
+    nextReading.set("language-switch", "1");
+    try {
+      sessionStorage.setItem("portfolio-language-reading", JSON.stringify({
+        path: destination.pathname,
+        time: Date.now(),
+        reading: nextReading.toString(),
+      }));
+    } catch {
+      // Fall back to URL data, which the destination removes after reading.
+      nextReading.forEach((value, name) => destination.searchParams.set(name, value));
+    }
     event.preventDefault();
-    if (languageChanging) return;
     languageChanging = true;
     document.querySelector(".language-switch")?.classList.add("is-switching");
     document.body.classList.add("language-leaving");
