@@ -1841,3 +1841,27 @@ footer { background: #e7e8df; border-top: 1px solid var(--line); }
 
 /* The heading receives programmatic focus after the entrance. */
 .hero-name[tabindex="-1"]:focus { outline: none; }
+
+@media (max-width: 760px), (hover: none) {
+  .contact { position: relative; }
+
+  .email-copy-status:not(:empty) {
+    inset: calc(100% + 8px) auto auto 50%;
+    z-index: 1;
+    width: max-content;
+    max-width: 100%;
+    height: auto;
+    padding: 5px 12px;
+    margin: 0;
+    clip: auto;
+    white-space: normal;
+    text-align: center;
+    transform: translateX(-50%);
+    color: #eeeef6;
+    background: #1a1b29;
+    border: 1px solid #343549;
+    border-radius: 8px;
+    font-size: .85rem;
+    pointer-events: none;
+  }
+}

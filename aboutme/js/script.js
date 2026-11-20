@@ -451,9 +451,10 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       clearTimeout(resetTimer);
       resetTimer = setTimeout(() => {
+        status.textContent = "";
         emailButton.classList.remove("copied");
         emailButton.setAttribute("aria-label", isChinese ? `複製信箱 ${email}` : `Copy email address ${email}`);
-      }, 1600);
+      }, 2200);
     });
   }
 
