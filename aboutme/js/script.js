@@ -414,10 +414,10 @@ document.addEventListener("DOMContentLoaded", () => {
     reveal.observe(timeline);
   }
 
-  const emailButton = document.querySelector(".icon-btn.email");
-  if (emailButton) {
-    const email = "rzworkplace@gmail.com";
-    const status = document.querySelector(".email-copy-status");
+  for (const emailButton of document.querySelectorAll("[data-copy-email]")) {
+    const email = "ryan1040154@gmail.com";
+    const status = emailButton.parentElement.querySelector(".email-copy-status");
+    if (!status) continue;
     const isChinese = document.documentElement.lang.startsWith("zh");
     let resetTimer;
 
@@ -440,18 +440,25 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     };
 
-    emailButton.addEventListener("click", async () => {
+    emailButton.addEventListener("pointerleave", (event) => {
+      if (event.pointerType === "mouse") emailButton.classList.remove("copied");
+    });
+
+    emailButton.addEventListener("click", async (event) => {
       try {
         await copyEmail();
         status.textContent = isChinese ? "已複製電子郵件地址。" : "Email address copied.";
-        emailButton.classList.add("copied");
+        if (event.pointerType !== "mouse" || emailButton.matches(":hover")) {
+          emailButton.classList.add("copied");
+        }
         emailButton.setAttribute("aria-label", isChinese ? "電子郵件地址已複製" : "Email address copied");
       } catch {
         status.textContent = isChinese ? "無法複製電子郵件地址。" : "Unable to copy email address.";
       }
+      status.classList.add("visible");
       clearTimeout(resetTimer);
       resetTimer = setTimeout(() => {
-        status.textContent = "";
+        status.classList.remove("visible");
         emailButton.classList.remove("copied");
         emailButton.setAttribute("aria-label", isChinese ? `複製信箱 ${email}` : `Copy email address ${email}`);
       }, 2200);
