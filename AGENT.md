@@ -7,7 +7,7 @@
 - 這是部署於 GitHub Pages 的 Ryan Chuang 個人作品集網站。
 - 網站是純靜態 HTML、CSS 與原生 JavaScript，沒有套件管理器、框架、編譯步驟或後端服務。
 - 根目錄的 `index.html` 是英文版主頁。
-- `aboutme/index.html` 是舊網址的相容轉址頁；`aboutme/zh/index.html` 是繁體中文版。
+- `zh/index.html` 是繁體中文版。
 - 兩個語言版本共用 `aboutme/css/style.css`、`aboutme/js/script.js` 與 `aboutme/images/`。
 - Font Awesome 6.4.0 由 cdnjs 載入；不要假設本機已有該套件。
 
@@ -15,8 +15,7 @@
 
 ```text
 index.html                  # GitHub Pages 入口與英文版主頁
-aboutme/index.html          # 舊英文網址的相容轉址頁
-aboutme/zh/index.html       # 繁體中文版主頁
+zh/index.html               # 繁體中文版主頁
 aboutme/css/style.css       # 兩個語言版本共用的樣式與響應式規則
 aboutme/js/script.js        # 打字動畫、行動選單、回頂端與背景動畫
 aboutme/images/             # 個人照、favicon、學校與經歷單位標誌
@@ -27,7 +26,7 @@ aboutme/images/             # 個人照、favicon、學校與經歷單位標誌
 - 保持網站可直接由靜態檔案伺服器提供，不要在沒有明確需求時引入框架、建置工具或依賴。
 - 修改履歷內容、章節、導覽或連結時，同步檢查英文與繁體中文頁面；若內容刻意只屬於單一語言，需在交付說明中指出。
 - 保留目前的語意化 HTML、標題層級及 section `id`。調整 `id` 時必須同步修改導覽錨點。
-- 英文頁從儲存庫根目錄載入 `aboutme/` 下的共用資源，中文版則位於 `aboutme/zh/`；新增或修改連結時留意兩者相對路徑層級不同。
+- 英文頁從儲存庫根目錄載入 `aboutme/` 下的共用資源，中文版則位於 `zh/`；新增或修改連結時留意兩者相對路徑層級不同。
 - 共用的視覺與互動修改應優先放在現有 CSS 或 JavaScript 檔案，避免在兩份 HTML 中複製 inline style 或 script。
 - 若 CSS 或 JavaScript 的變更需要讓 GitHub Pages 使用者立即取得新版，請同步更新兩份 HTML 中相對應的 `?v=` 快取版本字串，且兩頁保持一致。
 - 新增圖片時使用適合網頁的尺寸與格式、具描述性的檔名及正確 `alt`；避免提交不必要的大型原始素材。
@@ -47,8 +46,7 @@ python -m http.server 8000
 然後檢查：
 
 - `http://localhost:8000/` 直接顯示英文版。
-- `http://localhost:8000/aboutme/` 會導向根目錄，以相容既有網址。
-- `http://localhost:8000/aboutme/zh/` 顯示繁體中文版。
+- `http://localhost:8000/zh/` 顯示繁體中文版。
 
 ## 驗證清單
 
