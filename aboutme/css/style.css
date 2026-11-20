@@ -1518,15 +1518,6 @@ button:focus-visible {
   }
 }
 
-footer {
-  margin-top: 40px;
-  padding: 26px 24px;
-  background: #0c0c13;
-  color: var(--muted);
-  text-align: left;
-  font: 0.92rem/1.65 "Segoe UI", "Microsoft JhengHei", "PingFang TC", sans-serif;
-}
-
 .back-to-top {
   position: fixed;
   right: 24px;
@@ -1543,6 +1534,7 @@ footer {
   color: #fff;
   box-shadow: var(--shadow);
   cursor: pointer;
+  visibility: hidden;
   opacity: 0;
   pointer-events: none;
   transform: translateY(10px);
@@ -1550,6 +1542,7 @@ footer {
 }
 
 .back-to-top.visible {
+  visibility: visible;
   opacity: 1;
   pointer-events: auto;
   transform: translateY(0);
@@ -1821,7 +1814,6 @@ main :is(.skills li, .timeline article, .card, .achievement-grid article, .leade
 .experience-timeline::before { left: 7.5px; width: 1px; border: 0; background: #99a89a; }
 .experience-entry::after { background: var(--teal); }
 .experience-entry::before { border-color: var(--teal); }
-footer { background: #e7e8df; border-top: 1px solid var(--line); }
 .back-to-top { background: #385342; }
 .back-to-top:hover { background: #283f31; }
 
@@ -1873,46 +1865,123 @@ footer { background: #e7e8df; border-top: 1px solid var(--line); }
   .email-copy-status { transition: none; }
 }
 
-footer > * { max-width: 1120px; margin-inline: auto; }
-.footer-contact { margin-bottom: 22px; }
+.site-footer {
+  background: #e9ede3;
+  border-top: 1px solid #9aab9d;
+  font: .95rem/1.65 "Segoe UI", "Microsoft JhengHei", "PingFang TC", sans-serif;
+}
+
+.footer-inner {
+  width: 100%;
+  max-width: 1120px;
+  margin-inline: auto;
+  padding: clamp(38px, 6vw, 72px) 24px 22px;
+}
+
+.footer-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(11rem, 15rem);
+  align-items: end;
+  gap: 24px clamp(24px, 7vw, 96px);
+}
+
+.footer-contact { min-width: 0; }
 
 .footer-contact h2 {
-  margin: 0 0 12px;
-  font-size: 1.25rem;
-  font-weight: 600;
-  line-height: 1.4;
+  max-width: 23ch;
+  margin: 0 0 14px;
+  font-size: clamp(1.65rem, 3.2vw, 2.65rem);
+  font-weight: 650;
+  line-height: 1.2;
+  letter-spacing: -.035em;
+  text-wrap: balance;
 }
 
-.footer-contact-links,
-.footer-nav {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 2px 20px;
+.footer-contact h2:lang(zh-Hant) { letter-spacing: .015em; }
+
+.footer-email {
+  position: relative;
+  width: fit-content;
+  max-width: 100%;
 }
 
-.footer-nav { margin-top: 8px; }
-.footer-email { position: relative; max-width: 100%; }
-
-.footer-contact :is(a, button) {
+.footer-email button {
   display: inline-flex;
   align-items: center;
+  gap: 12px;
+  max-width: 100%;
   min-height: 44px;
-  color: inherit;
+  padding: 7px 13px;
+  color: var(--teal);
+  background: var(--surface);
+  border: 1px solid #aab8ab;
+  border-radius: 6px;
   font: inherit;
-  text-decoration: underline;
-  text-underline-offset: .24em;
-  text-decoration-color: #385d4a80;
-}
-
-.footer-contact button {
-  background: none;
-  border: 0;
-  padding: 0;
+  font-weight: 600;
   cursor: pointer;
   overflow-wrap: anywhere;
 }
 
-.footer-contact :is(a, button):hover { text-decoration-color: currentColor; }
-.footer-email .email-copy-status { max-width: min(16rem, 80vw); }
+.footer-email button:hover,
+.footer-email button.copied { background: #dce6d6; }
+
+.footer-email .email-copy-status {
+  inset: auto auto calc(100% + 8px) 0;
+  max-width: min(16rem, 80vw);
+  transform: translateY(4px);
+}
+
+.footer-email .email-copy-status.visible { transform: translateY(0); }
+
+.footer-socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 22px;
+  margin-top: 8px;
+}
+
+.footer-socials a,
+.footer-nav a {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--teal);
+  font-weight: 600;
+}
+
+.footer-socials a {
+  text-decoration: underline;
+  text-decoration-color: #779281;
+  text-underline-offset: .25em;
+}
+
+.footer-nav a {
+  justify-content: space-between;
+  gap: 16px;
+  border-top: 1px solid var(--line);
+  text-decoration: none;
+}
+
+.footer-nav a span { flex-shrink: 0; }
+
+.footer-socials a:hover,
+.footer-nav a:hover {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: .25em;
+}
+
+.footer-meta {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: .82rem;
+}
+
+.footer-meta p { margin: 0; }
+
+@media (max-width: 760px) {
+  .footer-inner { padding-inline: 18px; }
+  .footer-body { grid-template-columns: minmax(0, 1fr); }
+}

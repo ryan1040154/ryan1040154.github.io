@@ -451,8 +451,8 @@ document.addEventListener("DOMContentLoaded", () => {
         if (event.pointerType !== "mouse" || emailButton.matches(":hover")) {
           emailButton.classList.add("copied");
         }
-        emailButton.setAttribute("aria-label", isChinese ? "電子郵件地址已複製" : "Email address copied");
       } catch {
+        emailButton.classList.remove("copied");
         status.textContent = isChinese ? "無法複製電子郵件地址。" : "Unable to copy email address.";
       }
       status.classList.add("visible");
@@ -460,7 +460,6 @@ document.addEventListener("DOMContentLoaded", () => {
       resetTimer = setTimeout(() => {
         status.classList.remove("visible");
         emailButton.classList.remove("copied");
-        emailButton.setAttribute("aria-label", isChinese ? `複製信箱 ${email}` : `Copy email address ${email}`);
       }, 2200);
     });
   }
@@ -472,9 +471,19 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   if (backToTop) {
+    const footerNav = document.querySelector(".footer-nav");
+    let footerNavVisible = false;
     const toggleBackToTop = () => {
-      backToTop.classList.toggle("visible", window.scrollY > 520);
+      backToTop.classList.toggle("visible", window.scrollY > 520 && !footerNavVisible);
     };
+
+    if (footerNav && "IntersectionObserver" in window) {
+      const footerObserver = new IntersectionObserver(([entry]) => {
+        footerNavVisible = entry.isIntersecting;
+        toggleBackToTop();
+      }, { threshold: 0.5 });
+      footerObserver.observe(footerNav);
+    }
 
     window.addEventListener("scroll", toggleBackToTop, { passive: true });
     toggleBackToTop();
