@@ -1962,7 +1962,20 @@ main :is(.skills li, .timeline article, .card, .achievement-grid article, .leade
   text-decoration: none;
 }
 
-.footer-nav a span { flex-shrink: 0; }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .footer-nav a,
+  .footer-socials a,
+  .footer-email button {
+    transition: transform .24s cubic-bezier(.22, 1, .36, 1),
+      background-color .24s ease, color .24s ease;
+  }
+
+  .footer-nav a:hover,
+  .footer-socials a:hover,
+  .footer-email button:hover {
+    transform: translateX(6px);
+  }
+}
 
 .footer-socials a:hover,
 .footer-nav a:hover {
